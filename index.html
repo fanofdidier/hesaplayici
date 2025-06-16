@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesaplayıcılar</title>
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkhlc2FwbGF5xLFjxLFsYXIiLAogICJzaG9ydF9uYW1lIjogIkhlc2FwbGF5xLFjxLFsYXIiLAogICJkZXNjcmlwdGlvbiI6ICJNYXRlbWF0aWsgdmUgZmluYW5zIGhlc2FwbGF5xLFjxLFsYXLEsSIsCiAgInN0YXJ0X3VybCI6ICIuLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgInRoZW1lX2NvbG9yIjogIiM2MzY2RjEiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNmZmZmZmYiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSGRwWkhSb1BTSXhNakFpSUdobGFXZG9kRDBpTVRJd0lqNDhjbVZqZENCM2FXUjBhRDBpTVRJd0lpQm9aV2xuYUhROUlqRXlNQ0lpSUdacGJHdzlJaU0yTXpZMlJqRWlMejQ4TDNOMlp6ND0iLAogICAgICAic2l6ZXMiOiAiMTIweDE0MCIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
+    <meta name="theme-color" content="#6366F1">
+    
+    <!-- Firebase SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: white;
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-icon {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .header-icon:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .search-box {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 20px;
+            color: white;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .search-box::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .categories {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .category {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-2px);
+        }
+
+        .category.active {
+            color: #6366F1;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .category:nth-child(1) .category-icon { background: #E0E7FF; }
+        .category:nth-child(2) .category-icon { background: #D1FAE5; }
+        .category:nth-child(3) .category-icon { background: #FEE2E2; }
+        .category:nth-child(4) .category-icon { background: #FEF3C7; }
+        .category:nth-child(5) .category-icon { background: #EDE9FE; }
+
+        .category-name {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Ad Banner Styles */
+        .ad-banner {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            margin: 10px 20px;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .view-all {
+            color: #6366F1;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .calculators-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .calculator-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .calculator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .calculator-card:nth-child(odd)::before { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .calculator-card:nth-child(even)::before { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); }
+
+        .calculator-icon {
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .calculator-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .calculator-description {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .calculator-users {
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #fbbf24;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            z-index: 3;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #6366F1;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+        }
+
+        .fab {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: #6366F1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.6);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 350px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-input {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #6366F1;
+        }
+
+        .form-select {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            background: white;
+        }
+
+        .calc-button {
+            background: #6366F1;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .calc-button:hover {
+            background: #5856eb;
+        }
+
+        .result {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #0369a1;
+            margin-top: 15px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        /* Login/Profile Styles */
+        .profile-section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #6366F1;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 20px;
+        }
+
+        .login-form {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .auth-button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .google-btn {
+            background: #db4437;
+            color: white;
+        }
+
+        .email-btn {
+            background: #6366F1;
+            color: white;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .user-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Scientific Calculator Styles */
+        .scientific-calc {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .calc-display {
+            grid-column: 1 / -1;
+            background: #1f2937;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: right;
+            font-size: 24px;
+            font-family: monospace;
+            margin-bottom: 10px;
+        }
+
+        .calc-btn {
+            background: #f3f4f6;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calc-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .calc-btn.operator {
+            background: #6366F1;
+            color: white;
+        }
+
+        .calc-btn.function {
+            background: #059669;
+            color: white;
+            font-size: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .bottom-nav {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="logo">logo Hesaplayıcılar</div>
+                <div class="header-icons">
+                    <div class="header-icon">🔔</div>
+                    <div class="header-icon" onclick="showProfile()">👤</div>
+                </div>
+            </div>
+            <input type="text" class="search-box" placeholder="Hesaplayıcı ara..." oninput="searchCalculators(this.value)">
+        </div>
+
+        <div class="categories">
+            <div class="category active" data-category="matematik">
+                <div class="category-icon">📊</div>
+                <div class="category-name">Matematik</div>
+            </div>
+            <div class="category" data-category="finans">
+                <div class="category-icon">💰</div>
+                <div class="category-name">Finans</div>
+            </div>
+            <div class="category" data-category="saglik">
+                <div class="category-icon">❤️</div>
+                <div class="category-name">Sağlık</div>
+            </div>
+            <div class="category" data-category="muhendislik">
+                <div class="category-icon">🔧</div>
+                <div class="category-name">Mühendislik</div>
+            </div>
+            <div class="category" data-category="birim">
+                <div class="category-icon">⚖️</div>
+                <div class="category-name">Birim Çeviri</div>
+            </div>
+        </div>
+
+        <!-- Reklam Alanı -->
+        <div class="ad-banner">
+            <!-- AdMob Banner Reklam Alanı -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <div class="content">
+            <div class="section-header">
+                <div class="section-title">Popüler Hesaplayıcılar</div>
+                <div class="view-all">Tümünü Gör</div>
+            </div>
+
+            <div class="calculators-grid" id="calculatorsGrid">
+                <!-- Matematik Hesaplayıcıları -->
+                <div class="calculator-card" data-category="matematik" onclick="openCalculator('percentage')">
+                    <div class="calculator-icon">%</div>
+                    <div class="calculator-title">Yüzde Hesaplama</div>
+                    <div class="calculator-description">İndirim, artış ve oran hesapları</div>
+                    <div class="calculator-users">👥 24.5k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="matematik" onclick="openCalculator('scientific')">
+                    <div class="calculator-icon">🧮</div>
+                    <div class="calculator-title">Bilimsel Hesap</div>
+                    <div class="calculator-description">Gelişmiş matematik işlemleri</div>
+                    <div class="calculator-users">👥 18.3k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="matematik" onclick="openCalculator('equation')">
+                    <div class="calculator-icon">📐</div>
+                    <div class="calculator-title">Denklem Çözücü</div>
+                    <div class="calculator-description">Lineer ve kuadratik denklemler</div>
+                    <div class="calculator-users">👥 15.7k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="matematik" onclick="openCalculator('geometry')">
+                    <div class="calculator-icon">📏</div>
+                    <div class="calculator-title">Geometri</div>
+                    <div class="calculator-description">Alan, hacim ve çevre hesabı</div>
+                    <div class="calculator-users">👥 12.9k kullanım</div>
+                </div>
+
+                <!-- Finans Hesaplayıcıları -->
+                <div class="calculator-card" data-category="finans" onclick="openCalculator('loan')">
+                    <div class="calculator-icon">🏛️</div>
+                    <div class="calculator-title">Kredi Hesaplama</div>
+                    <div class="calculator-description">Aylık taksit ve toplam ödeme</div>
+                    <div class="calculator-users">👥 22.1k kullanım</div>
+                    <div class="premium-badge">Premium</div>
+                </div>
+
+                <div class="calculator-card" data-category="finans" onclick="openCalculator('investment')">
+                    <div class="calculator-icon">📈</div>
+                    <div class="calculator-title">Yatırım Getirisi</div>
+                    <div class="calculator-description">Bileşik faiz hesaplama</div>
+                    <div class="calculator-users">👥 19.4k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="finans" onclick="openCalculator('currency')">
+                    <div class="calculator-icon">💱</div>
+                    <div class="calculator-title">Döviz Çevirici</div>
+                    <div class="calculator-description">Güncel kurlarla çeviri</div>
+                    <div class="calculator-users">👥 16.8k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="finans" onclick="openCalculator('tax')">
+                    <div class="calculator-icon">🧾</div>
+                    <div class="calculator-title">Vergi Hesaplama</div>
+                    <div class="calculator-description">KDV ve gelir vergisi</div>
+                    <div class="calculator-users">👥 14.2k kullanım</div>
+                </div>
+
+                <!-- Sağlık Hesaplayıcıları -->
+                <div class="calculator-card" data-category="saglik" onclick="openCalculator('bmi')">
+                    <div class="calculator-icon">❤️</div>
+                    <div class="calculator-title">BMI Hesaplama</div>
+                    <div class="calculator-description">Vücut kitle indeksi</div>
+                    <div class="calculator-users">👥 31.5k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="saglik" onclick="openCalculator('calorie')">
+                    <div class="calculator-icon">🍎</div>
+                    <div class="calculator-title">Kalori Hesaplama</div>
+                    <div class="calculator-description">Günlük kalori ihtiyacı</div>
+                    <div class="calculator-users">👥 28.7k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="saglik" onclick="openCalculator('pregnancy')">
+                    <div class="calculator-icon">🤱</div>
+                    <div class="calculator-title">Hamilelik Takvimi</div>
+                    <div class="calculator-description">Doğum tarihi hesaplama</div>
+                    <div class="calculator-users">👥 23.9k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="saglik" onclick="openCalculator('water')">
+                    <div class="calculator-icon">💧</div>
+                    <div class="calculator-title">Su İhtiyacı</div>
+                    <div class="calculator-description">Günlük su tüketimi</div>
+                    <div class="calculator-users">👥 18.6k kullanım</div>
+                </div>
+
+                <!-- Mühendislik Hesaplayıcıları -->
+                <div class="calculator-card" data-category="muhendislik" onclick="openCalculator('resistance')">
+                    <div class="calculator-icon">⚡</div>
+                    <div class="calculator-title">Ohm Kanunu</div>
+                    <div class="calculator-description">Elektrik hesaplaması</div>
+                    <div class="calculator-users">👥 12.4k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="muhendislik" onclick="openCalculator('concrete')">
+                    <div class="calculator-icon">🏗️</div>
+                    <div class="calculator-title">Beton Hesaplama</div>
+                    <div class="calculator-description">Malzeme miktarı</div>
+                    <div class="calculator-users">👥 9.8k kullanım</div>
+                </div>
+
+                <!-- Birim Çeviri Hesaplayıcıları -->
+                <div class="calculator-card" data-category="birim" onclick="openCalculator('unit')">
+                    <div class="calculator-icon">📐</div>
+                    <div class="calculator-title">Uzunluk Çevirici</div>
+                    <div class="calculator-description">Metre, cm, inch çevirisi</div>
+                    <div class="calculator-users">👥 25.3k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="birim" onclick="openCalculator('weight')">
+                    <div class="calculator-icon">⚖️</div>
+                    <div class="calculator-title">Ağırlık Çevirici</div>
+                    <div class="calculator-description">Kg, pound, ons çevirisi</div>
+                    <div class="calculator-users">👥 21.7k kullanım</div>
+                </div>
+
+                <div class="calculator-card" data-category="birim" onclick="openCalculator('temperature')">
+                    <div class="calculator-icon">🌡️</div>
+                    <div class="calculator-title">Sıcaklık Çevirici</div>
+                    <div class="calculator-description">Celsius, Fahrenheit, Kelvin</div>
+                    <div class="calculator-users">👥 19.2k kullanım</div>
+                </div>
+            </div>
+
+            <!-- Reklam Alanı -->
+            <div class="ad-banner">
+                <!-- AdMob Native Reklam Alanı -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-format="fluid"
+                     data-ad-layout-key="-6t+ed+2i-1n-4w"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <div class="fab" onclick="showHistory()">📊</div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="showHome()">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Ana Sayfa</div>
+            </div>
+            <div class="nav-item" onclick="showFavorites()">
+                <div class="nav-icon">⭐</div>
+                <div class="nav-label">Favoriler</div>
+            </div>
+            <div class="nav-item" onclick="showHistory()">
+                <div class="nav-icon">🕐</div>
+                <div class="nav-label">Geçmiş</div>
+            </div>
+            <div class="nav-item" onclick="showProfile()">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profil</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Profil/Giriş Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('profileModal')">&times;</button>
+            
+            <!-- Giriş yapmamış kullanıcı -->
+            <div id="loginSection" class="profile-section">
+                <div class="profile-avatar">👤</div>
+                <h2>Hesaplayıcılar'a Hoş Geldiniz</h2>
+                <p>Hesaplamalarınızı kaydetmek ve senkronize etmek için giriş yapın</p>
+                <div class="login-form">
+                    <button class="auth-button google-btn" onclick="signInWithGoogle()">
+                        🔍 Google ile Giriş Yap
+                    </button>
+                    <button class="auth-button email-btn" onclick="showEmailLogin()">
+                        📧 E-posta ile Giriş Yap
+                    </button>
+                    <button class="auth-button email-btn" onclick="showEmailRegister()">
+                        ✨ Yeni Hesap Oluştur
+                    </button>
+                </div>
+            </div>
+
+            <!-- E-posta ile giriş -->
+            <div id="emailLoginSection" class="profile-section hidden">
+                <h2>E-posta ile Giriş</h2>
+                <div class="login-form">
+                    <input type="email" id="loginEmail" class="form-input" placeholder="E-posta adresiniz">
+                    <input type="password" id="loginPassword" class="form-input" placeholder="Şifreniz">
+                    <button class="auth-button email-btn" onclick="signInWithEmail()">Giriş Yap</button>
+                    <button class="auth-button" onclick="showMainLogin()" style="background: #666;">Geri Dön</button>
+                </div>
+            </div>
+
+            <!-- E-posta ile kayıt -->
+            <div id="emailRegisterSection" class="profile-section hidden">
+                <h2>Yeni Hesap Oluştur</h2>
+                <div class="login-form">
+                    <input type="text" id="registerName" class="form-input" placeholder="Adınız Soyadınız">
+                    <input type="email" id="registerEmail" class="form-input" placeholder="E-posta adresiniz">
+                    <input type="password" id="registerPassword" class="form-input" placeholder="Şifreniz (min 6 karakter)">
+                    <input type="password" id="registerPasswordConfirm" class="form-input" placeholder="Şifrenizi tekrar girin">
+                    <button class="auth-button email-btn" onclick="registerWithEmail()">Hesap Oluştur</button>
+                    <button class="auth-button" onclick="showMainLogin()" style="background: #666;">Geri Dön</button>
+                </div>
+            </div>
+
+            <!-- Giriş yapmış kullanıcı -->
+            <div id="userSection" class="profile-section hidden">
+                <div class="profile-avatar" id="userAvatar">👤</div>
+                <div class="user-info">
+                    <h3 id="userName">Kullanıcı Adı</h3>
+                    <p id="userEmail">user@example.com</p>
+                    <p>Üyelik: <span id="membershipDate"></span></p>
+                </div>
+                <div class="login-form">
+                    <button class="auth-button email-btn" onclick="syncData()">
+                        🔄 Verileri Senkronize Et
+                    </button>
+                    <button class="auth-button" onclick="exportData()" style="background: #059669;">
+                        📤 Verileri Dışa Aktar
+                    </button>
+                    <button class="auth-button logout-btn" onclick="signOut()">
+                        🚪 Çıkış Yap
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Yüzde Hesaplama Modal -->
+    <div id="percentageModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('percentageModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">Yüzde Hesaplama</div>
+            </div>
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label class="form-label">Hesaplama Türü</label>
+                    <select class="form-select" id="percentType" onchange="updatePercentForm()">
+                        <option value="basic">Temel Yüzde (%)</option>
+                        <option value="increase">Yüzde Artış</option>
+                        <option value="decrease">Yüzde Azalış</option>
+                        <option value="difference">İki Sayı Arası Fark</option>
+                    </select>
+                </div>
+                <div id="percentInputs">
+                    <div class="form-group">
+                        <label class="form-label">Sayı</label>
+                        <input type="number" class="form-input" id="percentNumber" placeholder="Örn: 100">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Yüzde (%)</label>
+                        <input type="number" class="form-input" id="percentValue" placeholder="Örn: 25">
+                    </div>
+                </div>
+                <button class="calc-button" onclick="calculatePercentage()">Hesapla</button>
+                <div id="percentResult" class="result" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BMI Hesaplama Modal -->
+    <div id="bmiModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('bmiModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">BMI Hesaplama</div>
+            </div>
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label class="form-label">Boy (cm)</label>
+                    <input type="number" class="form-input" id="height" placeholder="Örn: 175">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Kilo (kg)</label>
+                    <input type="number" class="form-input" id="weight" placeholder="Örn: 70">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Yaş</label>
+                    <input type="number" class="form-input" id="age" placeholder="Örn: 25">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Cinsiyet</label>
+                    <select class="form-select" id="gender">
+                        <option value="male">Erkek</option>
+                        <option value="female">Kadın</option>
+                    </select>
+                </div>
+                <button class="calc-button" onclick="calculateBMI()">Hesapla</button>
+                <div id="bmiResult" class="result" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bilimsel Hesap Makinesi Modal -->
+    <div id="scientificModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('scientificModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">Bilimsel Hesap Makinesi</div>
+            </div>
+            <div class="scientific-calc">
+                <div class="calc-display" id="calcDisplay">0</div>
+                
+                <button class="calc-btn function" onclick="clearCalc()">C</button>
+                <button class="calc-btn function" onclick="clearEntry()">CE</button>
+                <button class="calc-btn function" onclick="backspace()">⌫</button>
+                <button class="calc-btn operator" onclick="appendOperator('/')">/</button>
+                
+                <button class="calc-btn function" onclick="appendFunction('sin(')">sin</button>
+                <button class="calc-btn function" onclick="appendFunction('cos(')">cos</button>
+                <button class="calc-btn function" onclick="appendFunction('tan(')">tan</button>
+                <button class="calc-btn operator" onclick="appendOperator('*')">×</button>
+                
+                <button class="calc-btn function" onclick="appendFunction('log(')">log</button>
+                <button class="calc-btn function" onclick="appendFunction('ln(')">ln</button>
+                <button class="calc-btn function" onclick="appendFunction('sqrt(')">√</button>
+                <button class="calc-btn operator" onclick="appendOperator('-')">-</button>
+                
+                <button class="calc-btn function" onclick="appendOperator('^')">x^y</button>
+                <button class="calc-btn function" onclick="appendNumber('3.14159')">π</button>
+                <button class="calc-btn function" onclick="appendNumber('2.71828')">e</button>
+                <button class="calc-btn operator" onclick="appendOperator('+')">+</button>
+                
+                <button class="calc-btn" onclick="appendFunction('(')">(</button>
+                <button class="calc-btn" onclick="appendFunction(')')">)</button>
+                <button class="calc-btn" onclick="appendNumber('0')">0</button>
+                <button class="calc-btn operator" onclick="calculate()">=</button>
+                
+                <button class="calc-btn" onclick="appendNumber('7')">7</button>
+                <button class="calc-btn" onclick="appendNumber('8')">8</button>
+                <button class="calc-btn" onclick="appendNumber('9')">9</button>
+                <button class="calc-btn" onclick="appendNumber('.')">.</button>
+                
+                <button class="calc-btn" onclick="appendNumber('4')">4</button>
+                <button class="calc-btn" onclick="appendNumber('5')">5</button>
+                <button class="calc-btn" onclick="appendNumber('6')">6</button>
+                <button class="calc-btn function" onclick="appendFunction('!')">n!</button>
+                
+                <button class="calc-btn" onclick="appendNumber('1')">1</button>
+                <button class="calc-btn" onclick="appendNumber('2')">2</button>
+                <button class="calc-btn" onclick="appendNumber('3')">3</button>
+                <button class="calc-btn function" onclick="appendFunction('%')">%</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kredi Hesaplama Modal -->
+    <div id="loanModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('loanModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">Kredi Hesaplama</div>
+            </div>
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label class="form-label">Kredi Tutarı (₺)</label>
+                    <input type="number" class="form-input" id="loanAmount" placeholder="Örn: 100000">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Yıllık Faiz Oranı (%)</label>
+                    <input type="number" class="form-input" id="interestRate" placeholder="Örn: 15" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Vade (Ay)</label>
+                    <input type="number" class="form-input" id="loanTerm" placeholder="Örn: 36">
+                </div>
+                <button class="calc-button" onclick="calculateLoan()">Hesapla</button>
+                <div id="loanResult" class="result" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Geometri Hesaplama Modal -->
+    <div id="geometryModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('geometryModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">Geometri Hesaplama</div>
+            </div>
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label class="form-label">Şekil Türü</label>
+                    <select class="form-select" id="shapeType" onchange="updateGeometryForm()">
+                        <option value="circle">Daire</option>
+                        <option value="rectangle">Dikdörtgen</option>
+                        <option value="triangle">Üçgen</option>
+                        <option value="square">Kare</option>
+                        <option value="sphere">Küre</option>
+                        <option value="cylinder">Silindir</option>
+                    </select>
+                </div>
+                <div id="geometryInputs">
+                    <div class="form-group">
+                        <label class="form-label">Yarıçap (r)</label>
+                        <input type="number" class="form-input" id="radius" placeholder="Örn: 5">
+                    </div>
+                </div>
+                <button class="calc-button" onclick="calculateGeometry()">Hesapla</button>
+                <div id="geometryResult" class="result" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Birim Çevirici Modal -->
+    <div id="unitModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('unitModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">Birim Çevirici</div>
+            </div>
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label class="form-label">Çeviri Türü</label>
+                    <select class="form-select" id="unitType" onchange="updateUnitForm()">
+                        <option value="length">Uzunluk</option>
+                        <option value="weight">Ağırlık</option>
+                        <option value="temperature">Sıcaklık</option>
+                        <option value="area">Alan</option>
+                        <option value="volume">Hacim</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Değer</label>
+                    <input type="number" class="form-input" id="unitValue" placeholder="Çevrilecek değer">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Kaynak Birim</label>
+                    <select class="form-select" id="fromUnit">
+                        <option value="m">Metre</option>
+                        <option value="cm">Santimetre</option>
+                        <option value="km">Kilometre</option>
+                        <option value="in">İnç</option>
+                        <option value="ft">Feet</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Hedef Birim</label>
+                    <select class="form-select" id="toUnit">
+                        <option value="m">Metre</option>
+                        <option value="cm">Santimetre</option>
+                        <option value="km">Kilometre</option>
+                        <option value="in">İnç</option>
+                        <option value="ft">Feet</option>
+                    </select>
+                </div>
+                <button class="calc-button" onclick="calculateUnit()">Çevir</button>
+                <div id="unitResult" class="result" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Global variables
+        let currentUser = null;
+        let calculationHistory = [];
+        let favorites = [];
+        let currentExpression = '';
+        let lastResult = 0;
+
+        // Auth State Observer
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                currentUser = user;
+                showUserProfile(user);
+                loadUserData();
+            } else {
+                currentUser = null;
+                showLoginProfile();
+            }
+        });
+
+        // PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZXZlbnQgPT4gewogIGNvbnNvbGUubG9nKCdTVyBpbnN0YWxsZWQnKTsKfSk7CgpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgZXZlbnQgPT4gewogIGV2ZW50LnJlc3BvbmRXaXRoKGZldGNoKGV2ZW50LnJlcXVlc3QpKTsKfSk7');
+        }
+
+        // Authentication Functions
+        function signInWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    console.log('Google sign in successful');
+                    closeModal('profileModal');
+                })
+                .catch((error) => {
+                    alert('Giriş hatası: ' + error.message);
+                });
+        }
+
+        function showEmailLogin() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('emailLoginSection').classList.remove('hidden');
+        }
+
+        function showEmailRegister() {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('emailRegisterSection').classList.remove('hidden');
+        }
+
+        function showMainLogin() {
+            document.getElementById('emailLoginSection').classList.add('hidden');
+            document.getElementById('emailRegisterSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+        }
+
+        function signInWithEmail() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                alert('Lütfen e-posta ve şifrenizi girin!');
+                return;
+            }
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((result) => {
+                    console.log('Email sign in successful');
+                    closeModal('profileModal');
+                })
+                .catch((error) => {
+                    alert('Giriş hatası: ' + error.message);
+                });
+        }
+
+        function registerWithEmail() {
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerPasswordConfirm').value;
+
+            if (!name || !email || !password || !confirmPassword) {
+                alert('Lütfen tüm alanları doldurun!');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Şifreler eşleşmiyor!');
+                return;
+            }
+
+            if (password.length < 6) {
+                alert('Şifre en az 6 karakter olmalıdır!');
+                return;
+            }
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((result) => {
+                    // Update user profile with name
+                    result.user.updateProfile({
+                        displayName: name
+                    });
+                    console.log('Registration successful');
+                    closeModal('profileModal');
+                })
+                .catch((error) => {
+                    alert('Kayıt hatası: ' + error.message);
+                });
+        }
+
+        function signOut() {
+            auth.signOut()
+                .then(() => {
+                    console.log('Sign out successful');
+                    closeModal('profileModal');
+                })
+                .catch((error) => {
+                    alert('Çıkış hatası: ' + error.message);
+                });
+        }
+
+        function showUserProfile(user) {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('emailLoginSection').classList.add('hidden');
+            document.getElementById('emailRegisterSection').classList.add('hidden');
+            document.getElementById('userSection').classList.remove('hidden');
+
+            document.getElementById('userName').textContent = user.displayName || 'Kullanıcı';
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('membershipDate').textContent = new Date(user.metadata.creationTime).toLocaleDateString('tr-TR');
+            
+            // Set avatar
+            const avatar = document.getElementById('userAvatar');
+            if (user.photoURL) {
+                avatar.style.backgroundImage = `url(${user.photoURL})`;
+                avatar.style.backgroundSize = 'cover';
+                avatar.textContent = '';
+            } else {
+                avatar.textContent = (user.displayName || user.email).charAt(0).toUpperCase();
+            }
+        }
+
+        function showLoginProfile() {
+            document.getElementById('userSection').classList.add('hidden');
+            document.getElementById('emailLoginSection').classList.add('hidden');
+            document.getElementById('emailRegisterSection').classList.add('hidden');
+            document.getElementById('loginSection').classList.remove('hidden');
+        }
+
+        // Data Management Functions
+        function saveCalculation(type, input, result) {
+            const calculation = {
+                type: type,
+                input: input,
+                result: result,
+                timestamp: new Date(),
+                userId: currentUser ? currentUser.uid : 'anonymous'
+            };
+
+            calculationHistory.unshift(calculation);
+            
+            // Keep only last 100 calculations
+            if (calculationHistory.length > 100) {
+                calculationHistory = calculationHistory.slice(0, 100);
+            }
+
+            // Save to localStorage for offline access
+            localStorage.setItem('calculationHistory', JSON.stringify(calculationHistory));
+
+            // Save to Firebase if user is logged in
+            if (currentUser) {
+                db.collection('calculations').add(calculation)
+                    .catch(console.error);
+            }
+        }
+
+        function loadUserData() {
+            if (!currentUser) return;
+
+            // Load calculation history
+            db.collection('calculations')
+                .where('userId', '==', currentUser.uid)
+                .orderBy('timestamp', 'desc')
+                .limit(100)
+                .get()
+                .then((querySnapshot) => {
+                    const serverHistory = [];
+                    querySnapshot.forEach((doc) => {
+                        serverHistory.push({id: doc.id, ...doc.data()});
+                    });
+                    
+                    // Merge with local history
+                    const localHistory = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+                    calculationHistory = mergeHistories(serverHistory, localHistory);
+                    localStorage.setItem('calculationHistory', JSON.stringify(calculationHistory));
+                })
+                .catch(console.error);
+        }
+
+        function mergeHistories(serverHistory, localHistory) {
+            const merged = [...serverHistory];
+            localHistory.forEach(local => {
+                if (!merged.find(server => 
+                    Math.abs(new Date(server.timestamp) - new Date(local.timestamp)) < 1000 &&
+                    server.type === local.type
+                )) {
+                    merged.push(local);
+                }
+            });
+            return merged.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        }
+
+        function syncData() {
+            if (!currentUser) {
+                alert('Senkronizasyon için giriş yapmanız gerekiyor!');
+                return;
+            }
+
+            alert('Veriler senkronize ediliyor...');
+            loadUserData();
+            setTimeout(() => {
+                alert('Senkronizasyon tamamlandı!');
+            }, 2000);
+        }
+
+        function exportData() {
+            const data = {
+                calculations: calculationHistory,
+                favorites: favorites,
+                exportDate: new Date().toISOString()
+            };
+
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `hesaplayicilar_verileri_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        // Calculator Functions
+        function openCalculator(type) {
+            const modalId = type + 'Modal';
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                
+                // Initialize specific calculator
+                switch(type) {
+                    case 'scientific':
+                        clearCalc();
+                        break;
+                    case 'geometry':
+                        updateGeometryForm();
+                        break;
+                    case 'unit':
+                        updateUnitForm();
+                        break;
+                    case 'percentage':
+                        updatePercentForm();
+                        break;
+                }
+            } else {
+                alert(type.charAt(0).toUpperCase() + type.slice(1) + ' hesaplayıcısı yakında eklenecek!');
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Percentage Calculator
+        function updatePercentForm() {
+            const type = document.getElementById('percentType').value;
+            const inputs = document.getElementById('percentInputs');
+            
+            switch(type) {
+                case 'basic':
+                    inputs.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Sayı</label>
+                            <input type="number" class="form-input" id="percentNumber" placeholder="Örn: 100">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Yüzde (%)</label>
+                            <input type="number" class="form-input" id="percentValue" placeholder="Örn: 25">
+                        </div>
+                    `;
+                    break;
+                case 'increase':
+                case 'decrease':
+                    inputs.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Başlangıç Değeri</label>
+                            <input type="number" class="form-input" id="originalValue" placeholder="Örn: 100">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">${type === 'increase' ? 'Artış' : 'Azalış'} Yüzdesi (%)</label>
+                            <input type="number" class="form-input" id="changePercent" placeholder="Örn: 20">
+                        </div>
+                    `;
+                    break;
+                case 'difference':
+                    inputs.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">İlk Sayı</label>
+                            <input type="number" class="form-input" id="firstNumber" placeholder="Örn: 80">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">İkinci Sayı</label>
+                            <input type="number" class="form-input" id="secondNumber" placeholder="Örn: 100">
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        function calculatePercentage() {
+            const type = document.getElementById('percentType').value;
+            let result, input, resultText;
+
+            try {
+                switch(type) {
+                    case 'basic':
+                        const number = parseFloat(document.getElementById('percentNumber').value);
+                        const percent = parseFloat(document.getElementById('percentValue').value);
+                        
+                        if (isNaN(number) || isNaN(percent)) {
+                            throw new Error('Geçerli sayılar giriniz!');
+                        }
+                        
+                        result = (number * percent) / 100;
+                        input = {number, percent};
+                        resultText = `${number} sayısının %${percent}'i = <strong>${result}</strong>`;
+                        break;
+                        
+                    case 'increase':
+                        const original = parseFloat(document.getElementById('originalValue').value);
+                        const increase = parseFloat(document.getElementById('changePercent').value);
+                        
+                        if (isNaN(original) || isNaN(increase)) {
+                            throw new Error('Geçerli sayılar giriniz!');
+                        }
+                        
+                        result = original * (1 + increase / 100);
+                        input = {original, increase};
+                        resultText = `${original} + %${increase} = <strong>${result.toFixed(2)}</strong><br>Artış miktarı: <strong>${(result - original).toFixed(2)}</strong>`;
+                        break;
+                        
+                    case 'decrease':
+                        const originalDec = parseFloat(document.getElementById('originalValue').value);
+                        const decrease = parseFloat(document.getElementById('changePercent').value);
+                        
+                        if (isNaN(originalDec) || isNaN(decrease)) {
+                            throw new Error('Geçerli sayılar giriniz!');
+                        }
+                        
+                        result = originalDec * (1 - decrease / 100);
+                        input = {original: originalDec, decrease};
+                        resultText = `${originalDec} - %${decrease} = <strong>${result.toFixed(2)}</strong><br>Azalış miktarı: <strong>${(originalDec - result).toFixed(2)}</strong>`;
+                        break;
+                        
+                    case 'difference':
+                        const first = parseFloat(document.getElementById('firstNumber').value);
+                        const second = parseFloat(document.getElementById('secondNumber').value);
+                        
+                        if (isNaN(first) || isNaN(second)) {
+                            throw new Error('Geçerli sayılar giriniz!');
+                        }
+                        
+                        const difference = ((second - first) / first) * 100;
+                        result = difference;
+                        input = {first, second};
+                        resultText = `${first} ile ${second} arası fark: <strong>%${difference.toFixed(2)}</strong>`;
+                        break;
+                }
+
+                document.getElementById('percentResult').style.display = 'block';
+                document.getElementById('percentResult').innerHTML = resultText;
+                
+                // Save calculation
+                saveCalculation('percentage', input, result);
+                
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        // BMI Calculator
+        function calculateBMI() {
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const age = parseFloat(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            
+            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+                alert('Lütfen geçerli değerler giriniz!');
+                return;
+            }
+            
+            const heightInM = height / 100;
+            const bmi = weight / (heightInM * heightInM);
+            
+            let category = '';
+            let advice = '';
+            
+            if (bmi < 18.5) {
+                category = 'Zayıf';
+                advice = 'Sağlıklı kilo almanız önerilir.';
+            } else if (bmi < 25) {
+                category = 'Normal';
+                advice = 'İdeal kiloda olduğunuz için bu kiloyu korumanız önerilir.';
+            } else if (bmi < 30) {
+                category = 'Fazla Kilolu';
+                advice = 'Dengeli beslenme ve egzersiz ile kilo vermeniz önerilir.';
+            } else {
+                category = 'Obez';
+                advice = 'Bir beslenme uzmanına danışmanız önerilir.';
+            }
+            
+            // Calculate ideal weight range
+            const idealMin = 18.5 * heightInM * heightInM;
+            const idealMax = 24.9 * heightInM * heightInM;
+            
+            document.getElementById('bmiResult').style.display = 'block';
+            document.getElementById('bmiResult').innerHTML = 
+                `<strong>BMI: ${bmi.toFixed(1)}</strong><br>
+                 Kategori: <strong>${category}</strong><br>
+                 İdeal Kilo: ${idealMin.toFixed(1)} - ${idealMax.toFixed(1)} kg<br>
+                 <small>${advice}</small>`;
+            
+            // Save calculation
+            saveCalculation('bmi', {height, weight, age, gender}, bmi);
+        }
+
+        // Scientific Calculator
+        function clearCalc() {
+            currentExpression = '';
+            document.getElementById('calcDisplay').textContent = '0';
+        }
+
+        function clearEntry() {
+            currentExpression = '';
+            document.getElementById('calcDisplay').textContent = '0';
+        }
+
+        function backspace() {
+            currentExpression = currentExpression.slice(0, -1);
+            document.getElementById('calcDisplay').textContent = currentExpression || '0';
+        }
+
+        function appendNumber(num) {
+            if (currentExpression === '0' && num !== '.') {
+                currentExpression = num;
+            } else {
+                currentExpression += num;
+            }
+            document.getElementById('calcDisplay').textContent = currentExpression;
+        }
+
+        function appendOperator(op) {
+            if (currentExpression && !/[+\-*/^]$/.test(currentExpression)) {
+                currentExpression += op;
+                document.getElementById('calcDisplay').textContent = currentExpression;
+            }
+        }
+
+        function appendFunction(func) {
+            currentExpression += func;
+            document.getElementById('calcDisplay').textContent = currentExpression;
+        }
+
+        function calculate() {
+            if (!currentExpression) return;
+
+            try {
+                let expression = currentExpression
+                    .replace(/\^/g, '**')
+                    .replace(/sin\(/g, 'Math.sin(')
+                    .replace(/cos\(/g, 'Math.cos(')
+                    .replace(/tan\(/g, 'Math.tan(')
+                    .replace(/log\(/g, 'Math.log10(')
+                    .replace(/ln\(/g, 'Math.log(')
+                    .replace(/sqrt\(/g, 'Math.sqrt(')
+                    .replace(/!/g, '')  // Factorial needs special handling
+                    .replace(/%/g, '/100');
+
+                const result = eval(expression);
+                
+                if (isNaN(result) || !isFinite(result)) {
+                    throw new Error('Geçersiz işlem');
+                }
+
+                lastResult = result;
+                currentExpression = result.toString();
+                document.getElementById('calcDisplay').textContent = result;
+
+                // Save calculation
+                saveCalculation('scientific', currentExpression, result);
+
+            } catch (error) {
+                document.getElementById('calcDisplay').textContent = 'Hata';
+                currentExpression = '';
+            }
+        }
+
+        // Loan Calculator
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const rate = parseFloat(document.getElementById('interestRate').value);
+            const term = parseFloat(document.getElementById('loanTerm').value);
+
+            if (isNaN(amount) || isNaN(rate) || isNaN(term) || amount <= 0 || rate < 0 || term <= 0) {
+                alert('Lütfen geçerli değerler giriniz!');
+                return;
+            }
+
+            const monthlyRate = rate / 100 / 12;
+            const monthlyPayment = amount * (monthlyRate * Math.pow(1 + monthlyRate, term)) / (Math.pow(1 + monthlyRate, term) - 1);
+            const totalPayment = monthlyPayment * term;
+            const totalInterest = totalPayment - amount;
+
+            document.getElementById('loanResult').style.display = 'block';
+            document.getElementById('loanResult').innerHTML = 
+                `<strong>Aylık Taksit: ₺${monthlyPayment.toFixed(2)}</strong><br>
+                 Toplam Ödeme: ₺${totalPayment.toFixed(2)}<br>
+                 Toplam Faiz: ₺${totalInterest.toFixed(2)}<br>
+                 Faiz Oranı: %${((totalInterest/amount)*100).toFixed(1)}`;
+
+            // Save calculation
+            saveCalculation('loan', {amount, rate, term}, {monthlyPayment, totalPayment, totalInterest});
+        }
+
+        // Geometry Calculator
+        function updateGeometryForm() {
+            const shape = document.getElementById('shapeType').value;
+            const inputs = document.getElementById('geometryInputs');
+
+            switch(shape) {
+                case 'circle':
+                    inputs.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Yarıçap (r)</label>
+                            <input type="number" class="form-input" id="radius" placeholder="Örn: 5">
+                        </div>
+                    `;
+                    break;
+                case 'rectangle':
+                    inputs.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Uzunluk</label>
+                            <input type="number" class="form-input" id="length" placeholder="Örn: 10">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Genişlik</label>
+                            <input type="number" class="form-input" id="width" placeholder="Örn: 5">
+                        </div>
+                    `;
+                    break;
+                case 'triangle':
+                    inputs.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Taban</label>
+                            <input type="number" class="form-input" id="base" placeholder="Örn: 10">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Yükseklik</label>
+                            <input type="number" class="form-input" id="triangleHeight" placeholder="Örn: 8">
+                        </div>
+                    `;
+                    break;
+                case 'square':
+                    inputs.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Kenar Uzunluğu</label>
+                            <input type="number" class="form-input" id="side" placeholder="Örn: 5">
+                        </div>
+                    `;
+                    break;
+                case 'sphere':
+                    inputs.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Yarıçap (r)</label>
+                            <input type="number" class="form-input" id="sphereRadius" placeholder="Örn: 5">
+                        </div>
+                    `;
+                    break;
+                case 'cylinder':
+                    inputs.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Yarıçap (r)</label>
+                            <input type="number" class="form-input" id="cylRadius" placeholder="Örn: 3">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Yükseklik (h)</label>
+                            <input type="number" class="form-input" id="cylHeight" placeholder="Örn: 10">
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        function calculateGeometry() {
+            const shape = document.getElementById('shapeType').value;
+            let result, area, perimeter, volume, surface;
+
+            try {
+                switch(shape) {
+                    case 'circle':
+                        const r = parseFloat(document.getElementById('radius').value);
+                        if (isNaN(r) || r <= 0) throw new Error('Geçerli yarıçap giriniz!');
+                        
+                        area = Math.PI * r * r;
+                        perimeter = 2 * Math.PI * r;
+                        result = `Alan: <strong>${area.toFixed(2)} cm²</strong><br>Çevre: <strong>${perimeter.toFixed(2)} cm</strong>`;
+                        break;
+
+                    case 'rectangle':
+                        const length = parseFloat(document.getElementById('length').value);
+                        const width = parseFloat(document.getElementById('width').value);
+                        if (isNaN(length) || isNaN(width) || length <= 0 || width <= 0) throw new Error('Geçerli ölçüler giriniz!');
+                        
+                        area = length * width;
+                        perimeter = 2 * (length + width);
+                        result = `Alan: <strong>${area.toFixed(2)} cm²</strong><br>Çevre: <strong>${perimeter.toFixed(2)} cm</strong>`;
+                        break;
+
+                    case 'triangle':
+                        const base = parseFloat(document.getElementById('base').value);
+                        const height = parseFloat(document.getElementById('triangleHeight').value);
+                        if (isNaN(base) || isNaN(height) || base <= 0 || height <= 0) throw new Error('Geçerli ölçüler giriniz!');
+                        
+                        area = (base * height) / 2;
+                        result = `Alan: <strong>${area.toFixed(2)} cm²</strong>`;
+                        break;
+
+                    case 'square':
+                        const side = parseFloat(document.getElementById('side').value);
+                        if (isNaN(side) || side <= 0) throw new Error('Geçerli kenar uzunluğu giriniz!');
+                        
+                        area = side * side;
+                        perimeter = 4 * side;
+                        result = `Alan: <strong>${area.toFixed(2)} cm²</strong><br>Çevre: <strong>${perimeter.toFixed(2)} cm</strong>`;
+                        break;
+
+                    case 'sphere':
+                        const sr = parseFloat(document.getElementById('sphereRadius').value);
+                        if (isNaN(sr) || sr <= 0) throw new Error('Geçerli yarıçap giriniz!');
+                        
+                        volume = (4/3) * Math.PI * sr * sr * sr;
+                        surface = 4 * Math.PI * sr * sr;
+                        result = `Hacim: <strong>${volume.toFixed(2)} cm³</strong><br>Yüzey Alanı: <strong>${surface.toFixed(2)} cm²</strong>`;
+                        break;
+
+                    case 'cylinder':
+                        const cr = parseFloat(document.getElementById('cylRadius').value);
+                        const ch = parseFloat(document.getElementById('cylHeight').value);
+                        if (isNaN(cr) || isNaN(ch) || cr <= 0 || ch <= 0) throw new Error('Geçerli ölçüler giriniz!');
+                        
+                        volume = Math.PI * cr * cr * ch;
+                        surface = 2 * Math.PI * cr * (cr + ch);
+                        result = `Hacim: <strong>${volume.toFixed(2)} cm³</strong><br>Yüzey Alanı: <strong>${surface.toFixed(2)} cm²</strong>`;
+                        break;
+                }
+
+                document.getElementById('geometryResult').style.display = 'block';
+                document.getElementById('geometryResult').innerHTML = result;
+
+                // Save calculation
+                saveCalculation('geometry', {shape, ...arguments}, {area, perimeter, volume, surface});
+
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        // Unit Converter
+        function updateUnitForm() {
+            const type = document.getElementById('unitType').value;
+            const fromUnit = document.getElementById('fromUnit');
+            const toUnit = document.getElementById('toUnit');
+
+            let options = '';
+            switch(type) {
+                case 'length':
+                    options = `
+                        <option value="mm">Milimetre</option>
+                        <option value="cm">Santimetre</option>
+                        <option value="m">Metre</option>
+                        <option value="km">Kilometre</option>
+                        <option value="in">İnç</option>
+                        <option value="ft">Feet</option>
+                        <option value="yd">Yard</option>
+                        <option value="mi">Mil</option>
+                    `;
+                    break;
+                case 'weight':
+                    options = `
+                        <option value="mg">Miligram</option>
+                        <option value="g">Gram</option>
+                        <option value="kg">Kilogram</option>
+                        <option value="t">Ton</option>
+                        <option value="oz">Ons</option>
+                        <option value="lb">Pound</option>
+                    `;
+                    break;
+                case 'temperature':
+                    options = `
+                        <option value="c">Celsius</option>
+                        <option value="f">Fahrenheit</option>
+                        <option value="k">Kelvin</option>
+                    `;
+                    break;
+                case 'area':
+                    options = `
+                        <option value="mm2">mm²</option>
+                        <option value="cm2">cm²</option>
+                        <option value="m2">m²</option>
+                        <option value="km2">km²</option>
+                        <option value="in2">inç²</option>
+                        <option value="ft2">feet²</option>
+                    `;
+                    break;
+                case 'volume':
+                    options = `
+                        <option value="ml">Mililitre</option>
+                        <option value="l">Litre</option>
+                        <option value="m3">m³</option>
+                        <option value="cup">Bardak</option>
+                        <option value="pt">Pint</option>
+                        <option value="qt">Quart</option>
+                        <option value="gal">Galon</option>
+                    `;
+                    break;
+            }
+
+            fromUnit.innerHTML = options;
+            toUnit.innerHTML = options;
+        }
+
+        function calculateUnit() {
+            const value = parseFloat(document.getElementById('unitValue').value);
+            const type = document.getElementById('unitType').value;
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+
+            if (isNaN(value)) {
+                alert('Lütfen geçerli bir değer giriniz!');
+                return;
+            }
+
+            let result = value;
+            
+            // Conversion factors and logic would go here
+            // This is a simplified version
+            const conversions = {
+                length: {
+                    mm: 0.001, cm: 0.01, m: 1, km: 1000, 
+                    in: 0.0254, ft: 0.3048, yd: 0.9144, mi: 1609.34
+                },
+                weight: {
+                    mg: 0.000001, g: 0.001, kg: 1, t: 1000,
+                    oz: 0.0283495, lb: 0.453592
+                }
+            };
+
+            if (conversions[type]) {
+                // Convert to base unit then to target
+                const baseValue = value * conversions[type][fromUnit];
+                result = baseValue / conversions[type][toUnit];
+            } else if (type === 'temperature') {
+                // Temperature conversion
+                if (fromUnit === 'c' && toUnit === 'f') {
+                    result = (value * 9/5) + 32;
+                } else if (fromUnit === 'f' && toUnit === 'c') {
+                    result = (value - 32) * 5/9;
+                } else if (fromUnit === 'c' && toUnit === 'k') {
+                    result = value + 273.15;
+                } else if (fromUnit === 'k' && toUnit === 'c') {
+                    result = value - 273.15;
+                }
+            }
+
+            document.getElementById('unitResult').style.display = 'block';
+            document.getElementById('unitResult').innerHTML = 
+                `<strong>${value} ${fromUnit} = ${result.toFixed(4)} ${toUnit}</strong>`;
+
+            // Save calculation
+            saveCalculation('unit', {value, type, fromUnit, toUnit}, result);
+        }
+
+        // Navigation Functions
+        function showProfile() {
+            document.getElementById('profileModal').classList.add('active');
+        }
+
+        function showHome() {
+            // Show all calculators
+            filterCalculators('all');
+            updateNavigation('home');
+        }
+
+        function showFavorites() {
+            // Show favorite calculators
+            alert('Favoriler özelliği yakında eklenecek!');
+            updateNavigation('favorites');
+        }
+
+        function showHistory() {
+            // Show calculation history
+            if (calculationHistory.length === 0) {
+                alert('Henüz hesaplama geçmişiniz yok!');
+                return;
+            }
+            
+            let historyHTML = '<h3>Son Hesaplamalar</h3>';
+            calculationHistory.slice(0, 10).forEach(calc => {
+                historyHTML += `
+                    <div style="background: #f8f9fa; padding: 10px; margin: 10px 0; border-radius: 8px;">
+                        <strong>${calc.type.toUpperCase()}</strong><br>
+                        <small>${new Date(calc.timestamp).toLocaleString('tr-TR')}</small><br>
+                        Sonuç: ${typeof calc.result === 'object' ? JSON.stringify(calc.result) : calc.result}
+                    </div>
+                `;
+            });
+            
+            // Create temporary modal for history
+            const historyModal = document.createElement('div');
+            historyModal.className = 'modal active';
+            historyModal.innerHTML = `
+                <div class="modal-content">
+                    <button class="close-btn" onclick="this.parentElement.parentElement.remove()">&times;</button>
+                    ${historyHTML}
+                </div>
+            `;
+            document.body.appendChild(historyModal);
+            
+            updateNavigation('history');
+        }
+
+        function updateNavigation(active) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const navItems = document.querySelectorAll('.nav-item');
+            switch(active) {
+                case 'home': navItems[0].classList.add('active'); break;
+                case 'favorites': navItems[1].classList.add('active'); break;
+                case 'history': navItems[2].classList.add('active'); break;
+                case 'profile': navItems[3].classList.add('active'); break;
+            }
+        }
+
+        // Search and Filter Functions
+        function searchCalculators(query) {
+            const cards = document.querySelectorAll('.calculator-card');
+            const searchLower = query.toLowerCase();
+            
+            cards.forEach(card => {
+                const title = card.querySelector('.calculator-title').textContent.toLowerCase();
+                const description = card.querySelector('.calculator-description').textContent.toLowerCase();
+                
+                if (title.includes(searchLower) || description.includes(searchLower)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterCalculators(category) {
+            const cards = document.querySelectorAll('.calculator-card');
+            
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Category switching
+        document.querySelectorAll('.category').forEach(category => {
+            category.addEventListener('click', function() {
+                document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                
+                const categoryType = this.getAttribute('data-category');
+                filterCalculators(categoryType);
+            });
+        });
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load local history
+            const localHistory = localStorage.getItem('calculationHistory');
+            if (localHistory) {
+                calculationHistory = JSON.parse(localHistory);
+            }
+            
+            // Load local favorites
+            const localFavorites = localStorage.getItem('favorites');
+            if (localFavorites) {
+                favorites = JSON.parse(localFavorites);
+            }
+            
+            console.log('Hesaplayıcılar PWA başlatıldı!');
+        });
+    </script>
+</body>
+</html>
