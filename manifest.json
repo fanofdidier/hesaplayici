@@ -1,0 +1,78 @@
+{
+  "name": "Hesaplayıcılar - PWA Uygulama",
+  "short_name": "Hesaplayıcılar",
+  "description": "Matematik, finans, sağlık ve mühendislik hesaplayıcıları. Offline çalışır, ana ekrana eklenebilir.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#6366F1",
+  "background_color": "#ffffff",
+  "scope": "./",
+  "lang": "tr",
+  "dir": "ltr",
+  "categories": ["education", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiM2MzY2RjEiIGQ9Ik0xOSAzSDVjLTEuMSAwLTIgLjktMiAydjE0YzAgMS4xLjkgMiAyIDJoMTRjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMnptLTUgMTRoLTF2LTRIOGMtLjU1IDAtMS0uNDUtMS0xczQ1LTEgMS0xaDVWOWgxVjd2LTRoMXY0SDl2MWMuNTUgMCAxIC40NSAxIDFzLS40NSAxLTEgMWgtNXY0eiIvPjwvc3ZnPg==",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiM2MzY2RjEiIGQ9Ik0xOSAzSDVjLTEuMSAwLTIgLjktMiAydjE0YzAgMS4xLjkgMiAyIDJoMTRjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMnptLTUgMTRoLTF2LTRIOGMtLjU1IDAtMS0uNDUtMS0xczQ1LTEgMS0xaDVWOWgxVjd2LTRoMXY0SDl2MWMuNTUgMCAxIC40NSAxIDFzLS40NSAxLTEgMWgtNXY0eiIvPjwvc3ZnPg==",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiM2MzY2RjEiIGQ9Ik0xOSAzSDVjLTEuMSAwLTIgLjktMiAydjE0YzAgMS4xLjkgMiAyIDJoMTRjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMnptLTUgMTRoLTF2LTRIOGMtLjU1IDAtMS0uNDUtMS0xczQ1LTEgMS0xaDVWOWgxVjd2LTRoMXY0SDl2MWMuNTUgMCAxIC40NSAxIDFzLS40NSAxLTEgMWgtNXY0eiIvPjwvc3ZnPg==",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Yüzde Hesaplama",
+      "short_name": "Yüzde",
+      "description": "Hızlı yüzde hesaplama",
+      "url": "./?calculator=percentage",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjNjM2NkYxIiBkPSJNNy41IDExQzguMzI4IDExIDkgMTAuMzI4IDkgOS41UzguMzI4IDggNy41IDggNiA4LjY3MiA2IDkuNVM2LjY3MiAxMSA3LjUgMTF6bTkgMkMxNS42NzIgMTMgMTUgMTMuNjcyIDE1IDE0LjVTMTUuNjcyIDE2IDE2LjUgMTZTMTggMTUuMzI4IDE4IDE0LjVTMTcuMzI4IDEzIDE2LjUgMTN6TTE5IDNINWMtMS4xIDAtMiAuOS0yIDJ2MTRjMCAxLjEuOSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlY1YzAtMS4xLS45LTItMi0yem0tOC41IDEzTDYuNSA5bDEuNS0xLjVMMTYgMTUuNUwxNi41IDE0eiIvPjwvc3ZnPg==",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "BMI Hesaplama",
+      "short_name": "BMI",
+      "description": "Vücut kitle indeksi hesaplama",
+      "url": "./?calculator=bmi",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjZWY0NDQ0IiBkPSJNMTIgMmMtNC40IDAtOCAzLjYtOCA4czMuNiA4IDggOHM4LTMuNiA4LThTMTYuNCAyIDEyIDJ6bTAgMTRjLTMuMyAwLTYtMi43LTYtNnMyLjctNiA2LTZzNiAyLjcgNiA2UzE1LjMgMTYgMTIgMTZ6bTAtMTBjLTIuMiAwLTQgMS44LTQgNHMxLjggNCA0IDRzNC0xLjggNC00UzE0LjIgNiAxMiA2eiIvPjwvc3ZnPg==",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Bilimsel Hesap",
+      "short_name": "Bilimsel",
+      "description": "Gelişmiş matematik işlemleri",
+      "url": "./?calculator=scientific",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSIjMDU5NjY5IiBkPSJNMTkgM0g1Yy0xLjEgMC0yIC45LTIgMnYxNGMwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0yVjVDMjEgMy45IDIwLjEgMyAxOSAzek0xMyAxN2gtMXYtNEg4Yy0uNTUgMC0xLS40NS0xLTFzLjQ1LTEgMS0xaDRWOWgxdjJoNGMuNTUgMCAxIC40NSAxIDFzLS40NSAxLTEgMWgtNFYxN3oiLz48L3N2Zz4=",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2OCIgZmlsbD0iIzY2N2VlYSIvPjx0ZXh0IHg9IjE2MCIgeT0iMjg0IiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SGVzYXBsYXnEsWPEsWxhciAtIFBXQTwvdGV4dD48L3N2Zz4=",
+      "sizes": "320x568",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    }
+  ]
+}
