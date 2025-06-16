@@ -1,66 +1,35 @@
 {
-  "name": "Hesaplayıcılar - PWA Uygulama",
+  "name": "Hesaplayıcılar",
   "short_name": "Hesaplayıcılar",
-  "id": "hesaplayicilar-pwa-app",
-  "description": "Matematik, finans, sağlık ve mühendislik hesaplayıcıları. Offline çalışır, ana ekrana eklenebilir.",
-  "start_url": "/hesaplayici/",
+  "id": "hesaplayicilar-app",
+  "description": "Matematik ve finans hesaplayıcıları",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
   "theme_color": "#6366F1",
   "background_color": "#ffffff",
-  "scope": "/hesaplayici/",
-  "lang": "tr",
-  "dir": "ltr",
-  "categories": ["education", "utilities", "productivity"],
+  "scope": "./",
   "launch_handler": {
     "client_mode": "navigate-existing"
   },
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/fanofdidier/hesaplayici/main/logosecond.png",
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgZmlsbD0iIzYzNjZGMSIgcng9IjI0Ii8+PGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iNDAiIGZpbGw9IndoaXRlIi8+PHRleHQgeD0iOTYiIHk9IjEwNSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmaWxsPSIjNjM2NkYxIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+JTwvdGV4dD48L3N2Zz4=",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "https://raw.githubusercontent.com/fanofdidier/hesaplayici/main/logomain.png",
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iIzYzNjZGMSIgcng9IjY0Ii8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIxMDAiIGZpbGw9IndoaXRlIi8+PHRleHQgeD0iMjU2IiB5PSIyODAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI3MiIgZmlsbD0iIzYzNjZGMSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPiU8L3RleHQ+PC9zdmc+",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "https://raw.githubusercontent.com/fanofdidier/hesaplayici/main/logomain.png",
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI1NiIgZmlsbD0iIzYzNjZGMSIvPjxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMTAwIiBmaWxsPSJ3aGl0ZSIvPjx0ZXh0IHg9IjI1NiIgeT0iMjgwIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNzIiIGZpbGw9IiM2MzY2RjEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtd2VpZ2h0PSJib2xkIj4lPC90ZXh0Pjwvc3ZnPg==",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Yüzde Hesaplama",
-      "short_name": "Yüzde",
-      "description": "Hızlı yüzde hesaplama",
-      "url": "/hesaplayici/?calculator=percentage",
-      "icons": [
-        {
-          "src": "https://raw.githubusercontent.com/fanofdidier/hesaplayici/main/logosecond.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "BMI Hesaplama",
-      "short_name": "BMI",
-      "description": "Vücut kitle indeksi hesaplama",
-      "url": "/hesaplayici/?calculator=bmi",
-      "icons": [
-        {
-          "src": "https://raw.githubusercontent.com/fanofdidier/hesaplayici/main/logosecond.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
     }
   ]
 }
