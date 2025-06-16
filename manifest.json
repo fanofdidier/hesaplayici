@@ -9,6 +9,10 @@
   "theme_color": "#6366F1",
   "background_color": "#ffffff",
   "scope": "./",
+  "lang": "tr",
+  "dir": "ltr",
+  "categories": ["education", "utilities", "productivity"],
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
   "launch_handler": {
     "client_mode": "navigate-existing"
   },
@@ -30,6 +34,22 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2OCIgZmlsbD0iIzY2N2VlYSIvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjE1MCIgcj0iNDAiIGZpbGw9IndoaXRlIi8+PHRleHQgeD0iMTYwIiB5PSIxNjAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzY2N2VlYSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPiU8L3RleHQ+PHRleHQgeD0iMTYwIiB5PSIzMDAiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5IZXNhcGxheWNpenNhbDFjaSZhcG9zO2xhciZhcG9zOzwvdGV4dD48dGV4dCB4PSIxNjAiIHk9IjMzMCIgZmlsbD0id2hpdGUiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk1hdGVtYXRpayB2ZSBGaW5hbnM8L3RleHQ+PC9zdmc+",
+      "sizes": "320x568",
+      "type": "image/svg+xml",
+      "form_factor": "narrow",
+      "label": "Ana Sayfa Görünümü"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4MCIgaGVpZ2h0PSI4MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEyODAiIGhlaWdodD0iODAwIiBmaWxsPSIjNjY3ZWVhIi8+PGNpcmNsZSBjeD0iNjQwIiBjeT0iMjAwIiByPSI4MCIgZmlsbD0id2hpdGUiLz48dGV4dCB4PSI2NDAiIHk9IjIzMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjQ4IiBmaWxsPSIjNjY3ZWVhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iYm9sZCI+JTwvdGV4dD48dGV4dCB4PSI2NDAiIHk9IjQ1MCIgZmlsbD0id2hpdGUiIGZvbnQtc2l6ZT0iMzYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkhlc2FwbGF5Y3p6c2FsMWNpJmFwb3M7bGFyJmFwb3M7PC90ZXh0Pjx0ZXh0IHg9IjY0MCIgeT0iNTAwIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TWF0ZW1hdGlrIHZlIEZpbmFuczwvdGV4dD48L3N2Zz4=",
+      "sizes": "1280x800",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "Masaüstü Görünümü"
     }
   ]
 }
