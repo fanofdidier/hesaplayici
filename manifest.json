@@ -13,23 +13,23 @@
     "client_mode": "navigate-existing"
   },
   "icons": [
-  {
-    "src": "logosecond.png",
-    "sizes": "192x192",
-    "type": "image/png",
-    "purpose": "any"
-  },
-  {
-    "src": "logomain.png",
-    "sizes": "512x512",
-    "type": "image/png",
-    "purpose": "any"
-  },
-  {
-    "src": "logomain.png",
-    "sizes": "512x512",
-    "type": "image/png",
-    "purpose": "maskable"
+    {
+      "src": "logosecond.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logomain.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logomain.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
