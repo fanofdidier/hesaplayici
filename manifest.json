@@ -4,16 +4,17 @@
   "id": "hesaplayicilar-app",
   "description": "Matematik ve finans hesaplayıcıları",
   "start_url": "./",
-  "display": "fullscreen",
-  "display_override": ["window-controls-overlay", "fullscreen", "standalone"],
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "portrait-primary",
   "theme_color": "#6366F1",
-  "background_color": "#ffffff",
+  "background_color": "#6366F1",
   "scope": "./",
   "lang": "tr",
   "dir": "ltr",
   "categories": ["education", "utilities", "productivity"],
   "prefer_related_applications": false,
+  "related_applications": [],
   "icons": [
     {
       "src": "logosecond.png",
@@ -33,5 +34,11 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-new"
+  }
 }
