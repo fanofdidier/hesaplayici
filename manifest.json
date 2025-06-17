@@ -5,7 +5,7 @@
   "description": "Matematik ve finans hesaplayıcıları",
   "start_url": "./",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait-primary",
   "theme_color": "#6366F1",
   "background_color": "#6366F1",
@@ -13,8 +13,8 @@
   "lang": "tr",
   "dir": "ltr",
   "categories": ["education", "utilities", "productivity"],
+  "iarc_rating_id": "pending",
   "prefer_related_applications": false,
-  "related_applications": [],
   "icons": [
     {
       "src": "logosecond.png",
@@ -35,10 +35,19 @@
       "purpose": "maskable"
     }
   ],
-  "edge_side_panel": {
-    "preferred_width": 400
-  },
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "type": "image/png",
+      "sizes": "1080x1920"
+    },
+    {
+      "src": "screenshot2.png",
+      "type": "image/png",
+      "sizes": "1080x1920"
+    }
+  ],
   "launch_handler": {
-    "client_mode": "navigate-new"
+    "client_mode": "navigate-existing"
   }
 }
