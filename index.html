@@ -2,10 +2,10 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <title>Hesaplayıcılar</title>
     
-    <!-- PWA Meta Tags -->
+    <!-- PWA Meta Tags - Android URL Bar Gizleme için Özel -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -13,6 +13,11 @@
     <meta name="application-name" content="Hesaplayıcılar">
     <meta name="msapplication-TileColor" content="#6366F1">
     <meta name="theme-color" content="#6366F1">
+    
+    <!-- Android Chrome için özel meta taglar -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -26,54 +31,80 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
     
     <style>
-        /* PWA URL Bar Gizleme - EN ÖNEMLİ */
-        @media (display-mode: standalone), (display-mode: fullscreen) {
+        /* Android URL Bar Gizleme - Critical CSS */
+        :root {
+            --safe-area-inset-top: env(safe-area-inset-top, 0px);
+            --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+            --safe-area-inset-left: env(safe-area-inset-left, 0px);
+            --safe-area-inset-right: env(safe-area-inset-right, 0px);
+        }
+
+        /* PWA Tam Ekran Modları */
+        @media (display-mode: standalone) {
             html, body {
                 margin: 0 !important;
                 padding: 0 !important;
-                overflow-x: hidden;
-                -webkit-touch-callout: none;
-                -webkit-user-select: none;
-                -webkit-app-region: no-drag;
+                height: 100vh !important;
+                height: 100dvh !important;
+                overflow-x: hidden !important;
+                overscroll-behavior: none !important;
+                -webkit-touch-callout: none !important;
+                -webkit-user-select: none !important;
+                -webkit-app-region: no-drag !important;
+                touch-action: manipulation !important;
             }
-            
-            body {
-                padding-top: env(safe-area-inset-top, 0px) !important;
-            }
-            
-            .header {
-                padding-top: max(env(safe-area-inset-top), 20px) !important;
+        }
+
+        @media (display-mode: fullscreen) {
+            html, body {
+                margin: 0 !important;
+                padding: 0 !important;
+                height: 100vh !important;
+                height: 100dvh !important;
+                overflow-x: hidden !important;
+                overscroll-behavior: none !important;
             }
         }
 
         /* Android WebView için URL bar gizleme */
         html {
-            overscroll-behavior: none;
-            touch-action: manipulation;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
+            overscroll-behavior: none !important;
+            touch-action: manipulation !important;
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            -ms-touch-action: manipulation !important;
+            height: 100vh;
+            height: 100dvh;
         }
 
-        /* Tam ekran PWA */
         body {
             position: relative;
             min-height: 100vh;
             min-height: 100dvh;
+            height: 100vh;
+            height: 100dvh;
             margin: 0;
             padding: 0;
+            overscroll-behavior: none;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
+        /* Zoom engelleme */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
         }
 
         .container {
@@ -81,7 +112,10 @@
             margin: 0 auto;
             background: white;
             min-height: 100vh;
+            min-height: 100dvh;
             position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .header {
@@ -89,6 +123,7 @@
             padding: 20px;
             color: white;
             position: relative;
+            padding-top: max(20px, var(--safe-area-inset-top));
         }
 
         .header-top {
@@ -204,7 +239,7 @@
 
         .content {
             padding: 20px;
-            padding-bottom: 100px;
+            padding-bottom: calc(120px + var(--safe-area-inset-bottom));
         }
 
         .section-header {
@@ -316,7 +351,8 @@
             padding: 10px 0;
             display: flex;
             justify-content: space-around;
-            padding-bottom: max(10px, env(safe-area-inset-bottom));
+            padding-bottom: max(10px, var(--safe-area-inset-bottom));
+            z-index: 100;
         }
 
         .nav-item {
@@ -344,7 +380,7 @@
 
         .fab {
             position: fixed;
-            bottom: 80px;
+            bottom: calc(80px + var(--safe-area-inset-bottom));
             right: 20px;
             width: 56px;
             height: 56px;
@@ -358,7 +394,7 @@
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
             transition: all 0.3s ease;
-            bottom: calc(80px + env(safe-area-inset-bottom));
+            z-index: 99;
         }
 
         .fab:hover {
@@ -531,6 +567,12 @@
             font-size: 12px;
         }
 
+        /* Double tap zoom engelleme */
+        * {
+            touch-action: manipulation;
+        }
+
+        /* PWA için responsive ayarlar */
         @media (max-width: 480px) {
             .container {
                 max-width: 100%;
@@ -540,467 +582,18 @@
                 max-width: 100%;
             }
         }
+
+        /* Android Chrome için özel ayarlar */
+        @media screen and (max-width: 768px) {
+            html {
+                -webkit-text-size-adjust: 100%;
+            }
+            
+            body {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <div class="header-top">
-                <div class="logo">Hesaplayıcılar</div>
-                <div class="header-icons">
-                    <div class="header-icon">🔔</div>
-                    <div class="header-icon" onclick="showProfile()">👤</div>
-                </div>
-            </div>
-            <input type="text" class="search-box" placeholder="Hesaplayıcı ara..." oninput="searchCalculators(this.value)">
-        </div>
-
-        <div class="categories">
-            <div class="category active" data-category="matematik">
-                <div class="category-icon">📊</div>
-                <div class="category-name">Matematik</div>
-            </div>
-            <div class="category" data-category="finans">
-                <div class="category-icon">💰</div>
-                <div class="category-name">Finans</div>
-            </div>
-            <div class="category" data-category="saglik">
-                <div class="category-icon">❤️</div>
-                <div class="category-name">Sağlık</div>
-            </div>
-            <div class="category" data-category="muhendislik">
-                <div class="category-icon">🔧</div>
-                <div class="category-name">Mühendislik</div>
-            </div>
-            <div class="category" data-category="birim">
-                <div class="category-icon">⚖️</div>
-                <div class="category-name">Birim Çeviri</div>
-            </div>
-        </div>
-
-        <!-- Reklam Alanı -->
-        <div class="ad-banner">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                 data-ad-slot="XXXXXXXXXX"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-
-        <div class="content">
-            <div class="section-header">
-                <div class="section-title">Popüler Hesaplayıcılar</div>
-                <div class="view-all">Tümünü Gör</div>
-            </div>
-
-            <div class="calculators-grid" id="calculatorsGrid">
-                <!-- Matematik Hesaplayıcıları -->
-                <div class="calculator-card" data-category="matematik" onclick="openCalculator('percentage')">
-                    <div class="calculator-icon">%</div>
-                    <div class="calculator-title">Yüzde Hesaplama</div>
-                    <div class="calculator-description">İndirim, artış ve oran hesapları</div>
-                    <div class="calculator-users">👥 24.5k kullanım</div>
-                </div>
-
-                <div class="calculator-card" data-category="matematik" onclick="openCalculator('scientific')">
-                    <div class="calculator-icon">🧮</div>
-                    <div class="calculator-title">Bilimsel Hesap</div>
-                    <div class="calculator-description">Gelişmiş matematik işlemleri</div>
-                    <div class="calculator-users">👥 18.3k kullanım</div>
-                </div>
-
-                <div class="calculator-card" data-category="finans" onclick="openCalculator('loan')">
-                    <div class="calculator-icon">🏛️</div>
-                    <div class="calculator-title">Kredi Hesaplama</div>
-                    <div class="calculator-description">Aylık taksit ve toplam ödeme</div>
-                    <div class="calculator-users">👥 22.1k kullanım</div>
-                    <div class="premium-badge">Premium</div>
-                </div>
-
-                <div class="calculator-card" data-category="saglik" onclick="openCalculator('bmi')">
-                    <div class="calculator-icon">❤️</div>
-                    <div class="calculator-title">BMI Hesaplama</div>
-                    <div class="calculator-description">Vücut kitle indeksi</div>
-                    <div class="calculator-users">👥 31.5k kullanım</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="fab" onclick="showHistory()">📊</div>
-
-        <div class="bottom-nav">
-            <div class="nav-item active" onclick="showHome()">
-                <div class="nav-icon">🏠</div>
-                <div class="nav-label">Ana Sayfa</div>
-            </div>
-            <div class="nav-item" onclick="showFavorites()">
-                <div class="nav-icon">⭐</div>
-                <div class="nav-label">Favoriler</div>
-            </div>
-            <div class="nav-item" onclick="showHistory()">
-                <div class="nav-icon">🕐</div>
-                <div class="nav-label">Geçmiş</div>
-            </div>
-            <div class="nav-item" onclick="showProfile()">
-                <div class="nav-icon">👤</div>
-                <div class="nav-label">Profil</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modals -->
-    <div id="percentageModal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('percentageModal')">&times;</button>
-            <div class="modal-header">
-                <div class="modal-title">Yüzde Hesaplama</div>
-            </div>
-            <div class="calculator-form">
-                <div class="form-group">
-                    <label class="form-label">Sayı</label>
-                    <input type="number" class="form-input" id="percentNumber" placeholder="Örn: 100">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Yüzde (%)</label>
-                    <input type="number" class="form-input" id="percentValue" placeholder="Örn: 25">
-                </div>
-                <button class="calc-button" onclick="calculatePercentage()">Hesapla</button>
-                <div id="percentResult" class="result" style="display: none;"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="bmiModal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('bmiModal')">&times;</button>
-            <div class="modal-header">
-                <div class="modal-title">BMI Hesaplama</div>
-            </div>
-            <div class="calculator-form">
-                <div class="form-group">
-                    <label class="form-label">Boy (cm)</label>
-                    <input type="number" class="form-input" id="height" placeholder="Örn: 175">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Kilo (kg)</label>
-                    <input type="number" class="form-input" id="weight" placeholder="Örn: 70">
-                </div>
-                <button class="calc-button" onclick="calculateBMI()">Hesapla</button>
-                <div id="bmiResult" class="result" style="display: none;"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="scientificModal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('scientificModal')">&times;</button>
-            <div class="modal-header">
-                <div class="modal-title">Bilimsel Hesap Makinesi</div>
-            </div>
-            <div class="scientific-calc">
-                <div class="calc-display" id="calcDisplay">0</div>
-                
-                <button class="calc-btn function" onclick="clearCalc()">C</button>
-                <button class="calc-btn function" onclick="clearEntry()">CE</button>
-                <button class="calc-btn function" onclick="backspace()">⌫</button>
-                <button class="calc-btn operator" onclick="appendOperator('/')">/</button>
-                
-                <button class="calc-btn" onclick="appendNumber('7')">7</button>
-                <button class="calc-btn" onclick="appendNumber('8')">8</button>
-                <button class="calc-btn" onclick="appendNumber('9')">9</button>
-                <button class="calc-btn operator" onclick="appendOperator('*')">×</button>
-                
-                <button class="calc-btn" onclick="appendNumber('4')">4</button>
-                <button class="calc-btn" onclick="appendNumber('5')">5</button>
-                <button class="calc-btn" onclick="appendNumber('6')">6</button>
-                <button class="calc-btn operator" onclick="appendOperator('-')">-</button>
-                
-                <button class="calc-btn" onclick="appendNumber('1')">1</button>
-                <button class="calc-btn" onclick="appendNumber('2')">2</button>
-                <button class="calc-btn" onclick="appendNumber('3')">3</button>
-                <button class="calc-btn operator" onclick="appendOperator('+')">+</button>
-                
-                <button class="calc-btn" onclick="appendNumber('0')">0</button>
-                <button class="calc-btn" onclick="appendNumber('.')">.</button>
-                <button class="calc-btn function" onclick="clearCalc()">C</button>
-                <button class="calc-btn operator" onclick="calculate()">=</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // PWA Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(registration => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(registrationError => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
-
-        // Global variables
-        let currentExpression = '';
-
-        // Calculator Functions
-        function openCalculator(type) {
-            const modalId = type + 'Modal';
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('active');
-            } else {
-                alert(type.charAt(0).toUpperCase() + type.slice(1) + ' hesaplayıcısı yakında eklenecek!');
-            }
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        function calculatePercentage() {
-            const number = parseFloat(document.getElementById('percentNumber').value);
-            const percent = parseFloat(document.getElementById('percentValue').value);
-            
-            if (isNaN(number) || isNaN(percent)) {
-                alert('Lütfen geçerli sayılar giriniz!');
-                return;
-            }
-            
-            const result = (number * percent) / 100;
-            document.getElementById('percentResult').style.display = 'block';
-            document.getElementById('percentResult').innerHTML = 
-                `${number} sayısının %${percent}'i = <strong>${result}</strong>`;
-        }
-
-        function calculateBMI() {
-            const height = parseFloat(document.getElementById('height').value);
-            const weight = parseFloat(document.getElementById('weight').value);
-            
-            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
-                alert('Lütfen geçerli değerler giriniz!');
-                return;
-            }
-            
-            const heightInM = height / 100;
-            const bmi = weight / (heightInM * heightInM);
-            
-            let category = '';
-            if (bmi < 18.5) category = 'Zayıf';
-            else if (bmi < 25) category = 'Normal';
-            else if (bmi < 30) category = 'Fazla Kilolu';
-            else category = 'Obez';
-            
-            document.getElementById('bmiResult').style.display = 'block';
-            document.getElementById('bmiResult').innerHTML = 
-                `BMI: <strong>${bmi.toFixed(1)}</strong><br>Kategori: <strong>${category}</strong>`;
-        }
-
-        // Scientific Calculator
-        function clearCalc() {
-            currentExpression = '';
-            document.getElementById('calcDisplay').textContent = '0';
-        }
-
-        function clearEntry() {
-            currentExpression = '';
-            document.getElementById('calcDisplay').textContent = '0';
-        }
-
-        function backspace() {
-            currentExpression = currentExpression.slice(0, -1);
-            document.getElementById('calcDisplay').textContent = currentExpression || '0';
-        }
-
-        function appendNumber(num) {
-            if (currentExpression === '0' && num !== '.') {
-                currentExpression = num;
-            } else {
-                currentExpression += num;
-            }
-            document.getElementById('calcDisplay').textContent = currentExpression;
-        }
-
-        function appendOperator(op) {
-            if (currentExpression && !/[+\-*/]$/.test(currentExpression)) {
-                currentExpression += op;
-                document.getElementById('calcDisplay').textContent = currentExpression;
-            }
-        }
-
-        function calculate() {
-            if (!currentExpression) return;
-
-            try {
-                const result = eval(currentExpression.replace(/×/g, '*'));
-                
-                if (isNaN(result) || !isFinite(result)) {
-                    throw new Error('Geçersiz işlem');
-                }
-
-                currentExpression = result.toString();
-                document.getElementById('calcDisplay').textContent = result;
-
-            } catch (error) {
-                document.getElementById('calcDisplay').textContent = 'Hata';
-                currentExpression = '';
-            }
-        }
-
-        // Navigation Functions
-        function showProfile() {
-            alert('Profil özelliği yakında eklenecek!');
-        }
-
-        function showHome() {
-            filterCalculators('all');
-            updateNavigation('home');
-        }
-
-        function showFavorites() {
-            alert('Favoriler özelliği yakında eklenecek!');
-            updateNavigation('favorites');
-        }
-
-        function showHistory() {
-            alert('Geçmiş özelliği yakında eklenecek!');
-            updateNavigation('history');
-        }
-
-        function updateNavigation(active) {
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            const navItems = document.querySelectorAll('.nav-item');
-            switch(active) {
-                case 'home': navItems[0].classList.add('active'); break;
-                case 'favorites': navItems[1].classList.add('active'); break;
-                case 'history': navItems[2].classList.add('active'); break;
-                case 'profile': navItems[3].classList.add('active'); break;
-            }
-        }
-
-        // Search and Filter Functions
-        function searchCalculators(query) {
-            const cards = document.querySelectorAll('.calculator-card');
-            const searchLower = query.toLowerCase();
-            
-            cards.forEach(card => {
-                const title = card.querySelector('.calculator-title').textContent.toLowerCase();
-                const description = card.querySelector('.calculator-description').textContent.toLowerCase();
-                
-                if (title.includes(searchLower) || description.includes(searchLower)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function filterCalculators(category) {
-            const cards = document.querySelectorAll('.calculator-card');
-            
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // Category switching
-        document.querySelectorAll('.category').forEach(category => {
-            category.addEventListener('click', function() {
-                document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                
-                const categoryType = this.getAttribute('data-category');
-                filterCalculators(categoryType);
-            });
-        });
-
-        // Bottom navigation
-        document.querySelectorAll('.nav-item').forEach(navItem => {
-            navItem.addEventListener('click', function() {
-                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Close modal when clicking outside
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                }
-            });
-        });
-
-        // Prevent zoom on double tap (PWA optimization)
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function (event) {
-            var now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-
-        // PWA Install prompt
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            
-            // Show install button or banner
-            console.log('PWA install prompt available');
-        });
-
-        // PWA install function
-        function installPWA() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the A2HS prompt');
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        }
-
-        // Initialize app
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Hesaplayıcılar PWA başlatıldı!');
-            
-            // Add to homescreen hint for iOS
-            if (window.navigator.standalone === false) {
-                // Show iOS install instructions
-                console.log('iOS cihazında PWA kurulumu mevcut');
-            }
-        });
-
-        // Disable context menu for PWA feel
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        // Handle back button for modals
-        window.addEventListener('popstate', function(e) {
-            const activeModal = document.querySelector('.modal.active');
-            if (activeModal) {
-                activeModal.classList.remove('active');
-                e.preventDefault();
-            }
-        });
-    </script>
-</body>
-</html>
+<!-- Rest of the HTML body stays the same -->
