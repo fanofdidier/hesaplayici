@@ -1,26 +1,17 @@
 {
   "name": "Hesaplayıcılar",
   "short_name": "Hesaplayıcılar",
-  "id": "hesaplayicilar-app",
   "description": "Matematik ve finans hesaplayıcıları",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone"],
   "orientation": "portrait-primary",
   "theme_color": "#6366F1",
   "background_color": "#6366F1",
-  "scope": "/",
+  "scope": "./",
   "lang": "tr",
   "dir": "ltr",
   "categories": ["education", "utilities", "productivity"],
   "prefer_related_applications": false,
-  "edge_side_panel": {
-    "preferred_width": 480
-  },
-  "handle_links": "preferred",
-  "launch_handler": {
-    "client_mode": "navigate-existing"
-  },
   "icons": [
     {
       "src": "logosecond.png",
@@ -46,7 +37,7 @@
       "name": "Yüzde Hesaplama",
       "short_name": "Yüzde",
       "description": "Hızlı yüzde hesaplama",
-      "url": "/?calc=percentage",
+      "url": "./?calc=percentage",
       "icons": [
         {
           "src": "logosecond.png",
@@ -59,7 +50,7 @@
       "name": "BMI Hesaplama",
       "short_name": "BMI",
       "description": "Vücut kitle indeksi hesaplama",
-      "url": "/?calc=bmi",
+      "url": "./?calc=bmi",
       "icons": [
         {
           "src": "logosecond.png",
@@ -67,15 +58,6 @@
           "type": "image/png"
         }
       ]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2OCIgZmlsbD0iIzY2N2VlYSIvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjE1MCIgcj0iNDAiIGZpbGw9IndoaXRlIi8+PHRleHQgeD0iMTYwIiB5PSIxNjAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzY2N2VlYSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9ImJvbGQiPiU8L3RleHQ+PHRleHQgeD0iMTYwIiB5PSIzMDAiIGZpbGw9IndoaXRlIiBmb250LXNpemU9IjE4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5IZXNhcGxheWNpbGFyPC90ZXh0Pjx0ZXh0IHg9IjE2MCIgeT0iMzMwIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TWF0ZW1hdGlrIHZlIEZpbmFuczwvdGV4dD48L3N2Zz4=",
-      "sizes": "320x568",
-      "type": "image/svg+xml",
-      "form_factor": "narrow",
-      "label": "Ana Sayfa"
     }
   ]
 }
