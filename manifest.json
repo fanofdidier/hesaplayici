@@ -3,17 +3,24 @@
   "short_name": "Hesaplayıcılar",
   "id": "hesaplayicilar-app",
   "description": "Matematik ve finans hesaplayıcıları",
-  "start_url": "./",
-  "display": "fullscreen",
-  "display_override": ["fullscreen", "standalone", "minimal-ui"],
+  "start_url": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
   "orientation": "portrait-primary",
   "theme_color": "#6366F1",
   "background_color": "#6366F1",
-  "scope": "./",
+  "scope": "/",
   "lang": "tr",
   "dir": "ltr",
   "categories": ["education", "utilities", "productivity"],
   "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 480
+  },
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
   "icons": [
     {
       "src": "logosecond.png",
@@ -39,7 +46,7 @@
       "name": "Yüzde Hesaplama",
       "short_name": "Yüzde",
       "description": "Hızlı yüzde hesaplama",
-      "url": "./?calc=percentage",
+      "url": "/?calc=percentage",
       "icons": [
         {
           "src": "logosecond.png",
@@ -52,7 +59,7 @@
       "name": "BMI Hesaplama",
       "short_name": "BMI",
       "description": "Vücut kitle indeksi hesaplama",
-      "url": "./?calc=bmi",
+      "url": "/?calc=bmi",
       "icons": [
         {
           "src": "logosecond.png",
@@ -70,8 +77,5 @@
       "form_factor": "narrow",
       "label": "Ana Sayfa"
     }
-  ],
-  "launch_handler": {
-    "client_mode": "navigate-existing"
-  }
+  ]
 }
