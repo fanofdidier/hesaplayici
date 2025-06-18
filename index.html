@@ -5,22 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <title>Hesaplayıcılar</title>
     
-    <!-- PWA Meta Tags - Android URL Bar Gizleme için Özel -->
+    <!-- PWA Meta Tags - Kritik Android ayarları -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Hesaplayıcılar">
     <meta name="application-name" content="Hesaplayıcılar">
-    <meta name="msapplication-TileColor" content="#6366F1">
-    <meta name="theme-color" content="#6366F1">
     
-    <!-- Android Chrome için özel meta taglar -->
+    <!-- Android Chrome özel meta taglar - URL bar gizleme için -->
+    <meta name="mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#6366F1">
+    <meta name="msapplication-TileColor" content="#6366F1">
+    <meta name="msapplication-navbutton-color" content="#6366F1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Android WebView ayarları -->
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
     
     <!-- Manifest -->
     <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon ve iconlar -->
+    <link rel="icon" type="image/png" sizes="192x192" href="logosecond.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="logomain.png">
+    <link rel="apple-touch-icon" href="logomain.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="logosecond.png">
     
     <!-- Firebase SDK -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
@@ -39,7 +50,7 @@
             --safe-area-inset-right: env(safe-area-inset-right, 0px);
         }
 
-        /* PWA Tam Ekran Modları */
+        /* PWA Tam Ekran Modları - Force fullscreen */
         @media (display-mode: standalone) {
             html, body {
                 margin: 0 !important;
@@ -66,53 +77,67 @@
             }
         }
 
-        /* Android WebView için URL bar gizleme */
+        @media (display-mode: minimal-ui) {
+            html, body {
+                margin: 0 !important;
+                padding: 0 !important;
+                height: 100vh !important;
+                height: 100dvh !important;
+                overflow-x: hidden !important;
+                overscroll-behavior: none !important;
+            }
+        }
+
+        /* Android WebView için URL bar gizleme - Daha agresif */
         html {
             overscroll-behavior: none !important;
             touch-action: manipulation !important;
             -webkit-touch-callout: none !important;
             -webkit-user-select: none !important;
             -ms-touch-action: manipulation !important;
-            height: 100vh;
-            height: 100dvh;
+            height: 100vh !important;
+            height: 100dvh !important;
+            width: 100vw !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
         }
 
         body {
-            position: relative;
-            min-height: 100vh;
-            min-height: 100dvh;
-            height: 100vh;
-            height: 100dvh;
-            margin: 0;
-            padding: 0;
-            overscroll-behavior: none;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            height: 100dvh !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overscroll-behavior: none !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        /* Zoom engelleme */
+        /* Zoom engelleme - Çok önemli */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation !important;
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            user-select: none !important;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-        }
-
+        /* Container ayarları */
         .container {
             max-width: 400px;
             margin: 0 auto;
             background: white;
-            min-height: 100vh;
-            min-height: 100dvh;
+            height: 100vh !important;
+            height: 100dvh !important;
             position: relative;
             overflow-y: auto;
             overflow-x: hidden;
@@ -123,7 +148,7 @@
             padding: 20px;
             color: white;
             position: relative;
-            padding-top: max(20px, var(--safe-area-inset-top));
+            padding-top: max(20px, calc(var(--safe-area-inset-top) + 10px));
         }
 
         .header-top {
@@ -567,33 +592,619 @@
             font-size: 12px;
         }
 
-        /* Double tap zoom engelleme */
-        * {
-            touch-action: manipulation;
-        }
-
-        /* PWA için responsive ayarlar */
+        /* Responsive ayarlar - Tam ekran için */
         @media (max-width: 480px) {
             .container {
-                max-width: 100%;
+                max-width: 100vw !important;
+                width: 100vw !important;
             }
             
             .bottom-nav {
-                max-width: 100%;
+                max-width: 100vw !important;
+                width: 100vw !important;
             }
         }
 
         /* Android Chrome için özel ayarlar */
-        @media screen and (max-width: 768px) {
+        @media screen and (max-device-width: 768px) {
             html {
-                -webkit-text-size-adjust: 100%;
+                -webkit-text-size-adjust: 100% !important;
+                height: 100vh !important;
+                height: 100dvh !important;
             }
             
             body {
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased !important;
+                -moz-osx-font-smoothing: grayscale !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+            }
+        }
+
+        /* PWA fullscreen force */
+        @media all and (display-mode: standalone) {
+            body {
+                padding-top: 0 !important;
+                margin-top: 0 !important;
             }
         }
     </style>
+    
+    <!-- PWA yükleme ve fullscreen JavaScript -->
+    <script>
+        // PWA tam ekran modunu zorla
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker başarıyla kayıtlı:', registration.scope);
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker kayıt hatası:', err);
+                    });
+            });
+        }
+
+        // Android için tam ekran modu
+        function requestFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        // Sayfa yüklendiğinde tam ekran iste
+        document.addEventListener('DOMContentLoaded', function() {
+            // Android WebView kontrolü
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+            
+            if (isAndroid && !isStandalone) {
+                // 2 saniye sonra fullscreen iste
+                setTimeout(requestFullscreen, 2000);
+            }
+        });
+
+        // URL bar gizleme için scroll trick
+        function hideAddressBar() {
+            if (document.body.scrollTop !== 0) {
+                setTimeout(function() {
+                    window.scrollTo(0, 1);
+                }, 0);
+            } else {
+                setTimeout(function() {
+                    window.scrollTo(0, 0);
+                }, 0);
+            }
+        }
+
+        // Sayfa yüklendiğinde URL bar'ı gizle
+        window.addEventListener('load', hideAddressBar);
+        window.addEventListener('orientationchange', hideAddressBar);
+    </script>
 </head>
-<!-- Rest of the HTML body stays the same -->
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-top">
+                <div class="logo">Hesaplayıcılar</div>
+                <div class="header-icons">
+                    <div class="header-icon">🔔</div>
+                    <div class="header-icon">👤</div>
+                </div>
+            </div>
+            <input type="text" class="search-box" placeholder="Hesaplayıcı ara...">
+        </div>
+
+        <!-- Categories -->
+        <div class="categories">
+            <div class="category active">
+                <div class="category-icon">📊</div>
+                <div class="category-name">Matematik</div>
+            </div>
+            <div class="category">
+                <div class="category-icon">💰</div>
+                <div class="category-name">Finans</div>
+            </div>
+            <div class="category">
+                <div class="category-icon">❤️</div>
+                <div class="category-name">Sağlık</div>
+            </div>
+            <div class="category">
+                <div class="category-icon">🔧</div>
+                <div class="category-name">Mühendislik</div>
+            </div>
+            <div class="category">
+                <div class="category-icon">⚖️</div>
+                <div class="category-name">Birim Çeviri</div>
+            </div>
+        </div>
+
+        <!-- Ad Banner -->
+        <div class="ad-banner">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Popular Calculators Section -->
+            <div class="section-header">
+                <div class="section-title">Popüler Hesaplayıcılar</div>
+                <div class="view-all">Tümünü Gör</div>
+            </div>
+
+            <div class="calculators-grid">
+                <div class="calculator-card" onclick="openCalculator('percentage')">
+                    <div class="calculator-icon">%</div>
+                    <div class="calculator-title">Yüzde Hesaplama</div>
+                    <div class="calculator-description">İndirim, artış ve oran hesapları</div>
+                    <div class="calculator-users">👥 24.5k kullanım</div>
+                </div>
+
+                <div class="calculator-card" onclick="openCalculator('scientific')">
+                    <div class="calculator-icon">🔬</div>
+                    <div class="calculator-title">Bilimsel Hesap</div>
+                    <div class="calculator-description">Gelişmiş matematik işlemleri</div>
+                    <div class="calculator-users">👥 18.3k kullanım</div>
+                </div>
+
+                <div class="calculator-card" onclick="openCalculator('bmi')">
+                    <div class="calculator-icon">⚖️</div>
+                    <div class="calculator-title">BMI Hesaplama</div>
+                    <div class="calculator-description">Vücut kitle indeksi</div>
+                    <div class="calculator-users">👥 15.7k kullanım</div>
+                </div>
+
+                <div class="calculator-card" onclick="openCalculator('loan')">
+                    <div class="calculator-icon">🏠</div>
+                    <div class="calculator-title">Kredi Hesaplama</div>
+                    <div class="calculator-description">Taksit ve faiz hesaplamaları</div>
+                    <div class="calculator-users">👥 12.1k kullanım</div>
+                    <div class="premium-badge">PRO</div>
+                </div>
+
+                <div class="calculator-card" onclick="openCalculator('currency')">
+                    <div class="calculator-icon">💱</div>
+                    <div class="calculator-title">Döviz Çevirici</div>
+                    <div class="calculator-description">Güncel kurlarla döviz çevirisi</div>
+                    <div class="calculator-users">👥 9.8k kullanım</div>
+                </div>
+
+                <div class="calculator-card" onclick="openCalculator('age')">
+                    <div class="calculator-icon">🎂</div>
+                    <div class="calculator-title">Yaş Hesaplama</div>
+                    <div class="calculator-description">Doğum tarihinden yaş hesaplama</div>
+                    <div class="calculator-users">👥 8.2k kullanım</div>
+                </div>
+            </div>
+
+            <!-- More sections can be added here -->
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <div class="nav-icon">🏠</div>
+            <div class="nav-label">Ana Sayfa</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">⭐</div>
+            <div class="nav-label">Favoriler</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">⏰</div>
+            <div class="nav-label">Geçmiş</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">👤</div>
+            <div class="nav-label">Profil</div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab" onclick="openCalculator('scientific')">
+        ➕
+    </div>
+
+    <!-- Modals -->
+    <!-- Percentage Calculator Modal -->
+    <div id="percentageModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('percentageModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">Yüzde Hesaplama</div>
+            </div>
+            <form class="calculator-form">
+                <div class="form-group">
+                    <label class="form-label">Sayı:</label>
+                    <input type="number" id="percentNumber" class="form-input" placeholder="100">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Yüzde:</label>
+                    <input type="number" id="percentValue" class="form-input" placeholder="20">
+                </div>
+                <button type="button" class="calc-button" onclick="calculatePercentage()">Hesapla</button>
+                <div id="percentResult" class="result hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scientific Calculator Modal -->
+    <div id="scientificModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('scientificModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">Bilimsel Hesap Makinesi</div>
+            </div>
+            <div class="scientific-calc">
+                <div id="calcDisplay" class="calc-display">0</div>
+                <button class="calc-btn function" onclick="clearDisplay()">C</button>
+                <button class="calc-btn function" onclick="clearEntry()">CE</button>
+                <button class="calc-btn function" onclick="deleteLast()">⌫</button>
+                <button class="calc-btn operator" onclick="appendToDisplay('/')">/</button>
+                
+                <button class="calc-btn" onclick="appendToDisplay('7')">7</button>
+                <button class="calc-btn" onclick="appendToDisplay('8')">8</button>
+                <button class="calc-btn" onclick="appendToDisplay('9')">9</button>
+                <button class="calc-btn operator" onclick="appendToDisplay('*')">×</button>
+                
+                <button class="calc-btn" onclick="appendToDisplay('4')">4</button>
+                <button class="calc-btn" onclick="appendToDisplay('5')">5</button>
+                <button class="calc-btn" onclick="appendToDisplay('6')">6</button>
+                <button class="calc-btn operator" onclick="appendToDisplay('-')">-</button>
+                
+                <button class="calc-btn" onclick="appendToDisplay('1')">1</button>
+                <button class="calc-btn" onclick="appendToDisplay('2')">2</button>
+                <button class="calc-btn" onclick="appendToDisplay('3')">3</button>
+                <button class="calc-btn operator" onclick="appendToDisplay('+')">+</button>
+                
+                <button class="calc-btn" onclick="appendToDisplay('0')">0</button>
+                <button class="calc-btn" onclick="appendToDisplay('.')">.</button>
+                <button class="calc-btn function" onclick="calculateSquareRoot()">√</button>
+                <button class="calc-btn operator" onclick="calculate()">=</button>
+                
+                <button class="calc-btn function" onclick="calculateSin()">sin</button>
+                <button class="calc-btn function" onclick="calculateCos()">cos</button>
+                <button class="calc-btn function" onclick="calculateTan()">tan</button>
+                <button class="calc-btn function" onclick="calculateLog()">log</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BMI Calculator Modal -->
+    <div id="bmiModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('bmiModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">BMI Hesaplama</div>
+            </div>
+            <form class="calculator-form">
+                <div class="form-group">
+                    <label class="form-label">Boy (cm):</label>
+                    <input type="number" id="bmiHeight" class="form-input" placeholder="175">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Kilo (kg):</label>
+                    <input type="number" id="bmiWeight" class="form-input" placeholder="70">
+                </div>
+                <button type="button" class="calc-button" onclick="calculateBMI()">Hesapla</button>
+                <div id="bmiResult" class="result hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loan Calculator Modal -->
+    <div id="loanModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('loanModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">Kredi Hesaplama</div>
+            </div>
+            <form class="calculator-form">
+                <div class="form-group">
+                    <label class="form-label">Kredi Tutarı (₺):</label>
+                    <input type="number" id="loanAmount" class="form-input" placeholder="100000">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Faiz Oranı (%):</label>
+                    <input type="number" id="loanRate" class="form-input" placeholder="1.5" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Vade (ay):</label>
+                    <input type="number" id="loanTerm" class="form-input" placeholder="36">
+                </div>
+                <button type="button" class="calc-button" onclick="calculateLoan()">Hesapla</button>
+                <div id="loanResult" class="result hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Age Calculator Modal -->
+    <div id="ageModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('ageModal')">&times;</button>
+            <div class="modal-header">
+                <div class="modal-title">Yaş Hesaplama</div>
+            </div>
+            <form class="calculator-form">
+                <div class="form-group">
+                    <label class="form-label">Doğum Tarihi:</label>
+                    <input type="date" id="birthDate" class="form-input">
+                </div>
+                <button type="button" class="calc-button" onclick="calculateAge()">Hesapla</button>
+                <div id="ageResult" class="result hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let currentCalculation = '';
+        let shouldResetDisplay = false;
+
+        // Modal Functions
+        function openCalculator(type) {
+            const modalId = type + 'Modal';
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+
+        // Percentage Calculator
+        function calculatePercentage() {
+            const number = parseFloat(document.getElementById('percentNumber').value);
+            const percent = parseFloat(document.getElementById('percentValue').value);
+            
+            if (isNaN(number) || isNaN(percent)) {
+                alert('Lütfen geçerli sayılar girin');
+                return;
+            }
+
+            const result = (number * percent) / 100;
+            document.getElementById('percentResult').innerHTML = 
+                `${number}'nin %${percent}'i = <strong>${result}</strong>`;
+            document.getElementById('percentResult').classList.remove('hidden');
+        }
+
+        // Scientific Calculator Functions
+        function appendToDisplay(value) {
+            const display = document.getElementById('calcDisplay');
+            if (shouldResetDisplay) {
+                display.textContent = '';
+                shouldResetDisplay = false;
+            }
+            if (display.textContent === '0') {
+                display.textContent = value;
+            } else {
+                display.textContent += value;
+            }
+        }
+
+        function clearDisplay() {
+            document.getElementById('calcDisplay').textContent = '0';
+            currentCalculation = '';
+        }
+
+        function clearEntry() {
+            document.getElementById('calcDisplay').textContent = '0';
+        }
+
+        function deleteLast() {
+            const display = document.getElementById('calcDisplay');
+            if (display.textContent.length > 1) {
+                display.textContent = display.textContent.slice(0, -1);
+            } else {
+                display.textContent = '0';
+            }
+        }
+
+        function calculate() {
+            const display = document.getElementById('calcDisplay');
+            try {
+                const result = eval(display.textContent.replace(/×/g, '*'));
+                display.textContent = result;
+                shouldResetDisplay = true;
+            } catch (error) {
+                display.textContent = 'Hata';
+                shouldResetDisplay = true;
+            }
+        }
+
+        function calculateSquareRoot() {
+            const display = document.getElementById('calcDisplay');
+            const value = parseFloat(display.textContent);
+            display.textContent = Math.sqrt(value);
+            shouldResetDisplay = true;
+        }
+
+        function calculateSin() {
+            const display = document.getElementById('calcDisplay');
+            const value = parseFloat(display.textContent);
+            display.textContent = Math.sin(value * Math.PI / 180);
+            shouldResetDisplay = true;
+        }
+
+        function calculateCos() {
+            const display = document.getElementById('calcDisplay');
+            const value = parseFloat(display.textContent);
+            display.textContent = Math.cos(value * Math.PI / 180);
+            shouldResetDisplay = true;
+        }
+
+        function calculateTan() {
+            const display = document.getElementById('calcDisplay');
+            const value = parseFloat(display.textContent);
+            display.textContent = Math.tan(value * Math.PI / 180);
+            shouldResetDisplay = true;
+        }
+
+        function calculateLog() {
+            const display = document.getElementById('calcDisplay');
+            const value = parseFloat(display.textContent);
+            display.textContent = Math.log10(value);
+            shouldResetDisplay = true;
+        }
+
+        // BMI Calculator
+        function calculateBMI() {
+            const height = parseFloat(document.getElementById('bmiHeight').value);
+            const weight = parseFloat(document.getElementById('bmiWeight').value);
+            
+            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+                alert('Lütfen geçerli değerler girin');
+                return;
+            }
+
+            const heightInMeters = height / 100;
+            const bmi = weight / (heightInMeters * heightInMeters);
+            
+            let category = '';
+            if (bmi < 18.5) category = 'Zayıf';
+            else if (bmi < 25) category = 'Normal';
+            else if (bmi < 30) category = 'Kilolu';
+            else category = 'Obez';
+
+            document.getElementById('bmiResult').innerHTML = 
+                `BMI: <strong>${bmi.toFixed(1)}</strong><br>Kategori: <strong>${category}</strong>`;
+            document.getElementById('bmiResult').classList.remove('hidden');
+        }
+
+        // Loan Calculator
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const rate = parseFloat(document.getElementById('loanRate').value) / 100;
+            const term = parseInt(document.getElementById('loanTerm').value);
+            
+            if (isNaN(amount) || isNaN(rate) || isNaN(term) || amount <= 0 || rate < 0 || term <= 0) {
+                alert('Lütfen geçerli değerler girin');
+                return;
+            }
+
+            const monthlyRate = rate / 12;
+            const payment = (amount * monthlyRate * Math.pow(1 + monthlyRate, term)) / 
+                           (Math.pow(1 + monthlyRate, term) - 1);
+            const totalPayment = payment * term;
+            const totalInterest = totalPayment - amount;
+
+            document.getElementById('loanResult').innerHTML = 
+                `Aylık Taksit: <strong>${payment.toFixed(2)} ₺</strong><br>
+                 Toplam Ödeme: <strong>${totalPayment.toFixed(2)} ₺</strong><br>
+                 Toplam Faiz: <strong>${totalInterest.toFixed(2)} ₺</strong>`;
+            document.getElementById('loanResult').classList.remove('hidden');
+        }
+
+        // Age Calculator
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birthDate').value);
+            const today = new Date();
+            
+            if (!birthDate || birthDate > today) {
+                alert('Lütfen geçerli bir doğum tarihi girin');
+                return;
+            }
+
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            const nextBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+            if (nextBirthday < today) {
+                nextBirthday.setFullYear(today.getFullYear() + 1);
+            }
+            
+            const daysUntilBirthday = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
+
+            document.getElementById('ageResult').innerHTML = 
+                `Yaşınız: <strong>${age}</strong><br>
+                 Doğum gününüze: <strong>${daysUntilBirthday} gün</strong>`;
+            document.getElementById('ageResult').classList.remove('hidden');
+        }
+
+        // Search functionality
+        document.querySelector('.search-box').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const calculators = document.querySelectorAll('.calculator-card');
+            
+            calculators.forEach(calc => {
+                const title = calc.querySelector('.calculator-title').textContent.toLowerCase();
+                const description = calc.querySelector('.calculator-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    calc.style.display = 'block';
+                } else {
+                    calc.style.display = 'none';
+                }
+            });
+        });
+
+        // Category filtering
+        document.querySelectorAll('.category').forEach(category => {
+            category.addEventListener('click', function() {
+                // Remove active class from all categories
+                document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
+                // Add active class to clicked category
+                this.classList.add('active');
+                
+                // Here you can add filtering logic based on category
+                console.log('Category selected:', this.querySelector('.category-name').textContent);
+            });
+        });
+
+        // Bottom navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                console.log('Navigation:', this.querySelector('.nav-label').textContent);
+            });
+        });
+
+        // Initialize AdSense
+        (adsbygoogle = window.adsbygoogle || []).push({});
+
+        // Prevent zoom on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
